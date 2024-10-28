@@ -1,0 +1,53 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Boatrace\Sakura\Stadiums;
+
+use Symfony\Component\BrowserKit\HttpBrowser;
+use Symfony\Component\DomCrawler\Crawler;
+
+/**
+ * @author shimomo
+ */
+abstract class BaseStadium
+{
+    /**
+     * @param \Symfony\Component\BrowserKit\HttpBrowser  $httpBrowser
+     */
+    public function __construct(protected HttpBrowser $httpBrowser){}
+
+    /**
+     * @param  \Symfony\Component\DomCrawler\Crawler  $crawler
+     * @param  string                                 $key
+     * @return array
+     */
+    protected function filterByKey(Crawler $crawler, string $key): array
+    {
+        $response = [];
+
+        $crawler->filter($key)->each(function ($node) use (&$response) {
+            $response[] = (float) $node->text();
+        });
+
+        return $response;
+    }
+
+    /**
+     * @param  \Symfony\Component\DomCrawler\Crawler  $crawler
+     * @param  array                                  $keys
+     * @return array
+     */
+    protected function filterByKeys(Crawler $crawler, array $keys): array
+    {
+        $response = [];
+
+        foreach ($keys as $key) {
+            $crawler->filter($key)->each(function ($node) use (&$response, $key) {
+                $response[$key][] = (float) $node->text();
+            });
+        }
+
+        return $response;
+    }
+}
