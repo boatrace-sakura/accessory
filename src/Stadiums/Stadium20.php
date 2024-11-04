@@ -28,8 +28,8 @@ class Stadium20 extends BaseStadium implements StadiumInterface
         $times = $this->filterByKey($crawler, '.hint');
 
         foreach (range(1, 6) as $bracket) {
-            $response['bracket' . $bracket . 'LapTime'] = $times[$bracket + 5];
-            $response['bracket' . $bracket . 'StraightTime'] = $times[$bracket + 5 + 6];
+            $response['bracket' . $bracket . 'LapTime'] = (float) $times[$bracket + 5];
+            $response['bracket' . $bracket . 'StraightTime'] = (float) $times[$bracket + 5 + 6];
         }
 
         return $response;

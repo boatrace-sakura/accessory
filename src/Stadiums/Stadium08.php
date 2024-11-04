@@ -28,9 +28,9 @@ class Stadium08 extends BaseStadium implements StadiumInterface
         $chunkTimes = array_chunk($times, 4);
 
         foreach (range(1, 6) as $bracket) {
-            $response['bracket' . $bracket . 'LapTime'] = $chunkTimes[$bracket - 1][1];
-            $response['bracket' . $bracket . 'TurnTime'] = $chunkTimes[$bracket - 1][2];
-            $response['bracket' . $bracket . 'StraightTime'] = $chunkTimes[$bracket - 1][3];
+            $response['bracket' . $bracket . 'LapTime'] = (float) $chunkTimes[$bracket - 1][1];
+            $response['bracket' . $bracket . 'TurnTime'] = (float) $chunkTimes[$bracket - 1][2];
+            $response['bracket' . $bracket . 'StraightTime'] = (float) $chunkTimes[$bracket - 1][3];
         }
 
         return $response;

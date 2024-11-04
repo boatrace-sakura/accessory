@@ -27,7 +27,7 @@ abstract class BaseStadium
         $response = [];
 
         $crawler->filter($key)->each(function ($node) use (&$response) {
-            $response[] = (float) $node->text();
+            $response[] = $node->text();
         });
 
         return $response;
@@ -44,7 +44,7 @@ abstract class BaseStadium
 
         foreach ($keys as $key) {
             $crawler->filter($key)->each(function ($node) use (&$response, $key) {
-                $response[$key][] = (float) $node->text();
+                $response[$key][] = $node->text();
             });
         }
 
