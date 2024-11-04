@@ -50,4 +50,13 @@ abstract class BaseStadium
 
         return $response;
     }
+
+    /**
+     * @param  string  $value
+     * @return string
+     */
+    protected function removeSpace(string $value): string
+    {
+        return preg_replace('/[\x00\s]++/u', '', $value);
+    }
 }
