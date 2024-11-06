@@ -163,25 +163,25 @@ class MainAccessoryTest extends PHPUnitTestCase
      */
     public function testStadium10(): void
     {
-        $response = $this->accessory->times(stadiumId: 7, raceNumber: 1, date: '2024-01-01');
-        $this->assertSame(36.10, $response['bracket1LapTime']);
-        $this->assertSame(4.86, $response['bracket1TurnTime']);
-        $this->assertSame(6.10, $response['bracket1StraightTime']);
-        $this->assertSame(37.09, $response['bracket2LapTime']);
-        $this->assertSame(5.12, $response['bracket2TurnTime']);
-        $this->assertSame(6.28, $response['bracket2StraightTime']);
-        $this->assertSame(36.72, $response['bracket3LapTime']);
-        $this->assertSame(5.50, $response['bracket3TurnTime']);
-        $this->assertSame(6.18, $response['bracket3StraightTime']);
-        $this->assertSame(37.12, $response['bracket4LapTime']);
-        $this->assertSame(5.58, $response['bracket4TurnTime']);
-        $this->assertSame(6.23, $response['bracket4StraightTime']);
-        $this->assertSame(38.05, $response['bracket5LapTime']);
-        $this->assertSame(5.84, $response['bracket5TurnTime']);
-        $this->assertSame(5.93, $response['bracket5StraightTime']);
-        $this->assertSame(37.82, $response['bracket6LapTime']);
-        $this->assertSame(5.41, $response['bracket6TurnTime']);
-        $this->assertSame(6.14, $response['bracket6StraightTime']);
+        $response = $this->accessory->times(stadiumId: 10, raceNumber: 1, date: '2024-01-18');
+        $this->assertSame(36.30, $response['bracket1LapTime']);
+        $this->assertSame(5.07, $response['bracket1TurnTime']);
+        $this->assertSame(6.53, $response['bracket1StraightTime']);
+        $this->assertSame(37.20, $response['bracket2LapTime']);
+        $this->assertSame(5.40, $response['bracket2TurnTime']);
+        $this->assertSame(6.72, $response['bracket2StraightTime']);
+        $this->assertSame(36.87, $response['bracket3LapTime']);
+        $this->assertSame(5.43, $response['bracket3TurnTime']);
+        $this->assertSame(6.63, $response['bracket3StraightTime']);
+        $this->assertSame(37.25, $response['bracket4LapTime']);
+        $this->assertSame(5.53, $response['bracket4TurnTime']);
+        $this->assertSame(6.67, $response['bracket4StraightTime']);
+        $this->assertSame(37.63, $response['bracket5LapTime']);
+        $this->assertSame(5.38, $response['bracket5TurnTime']);
+        $this->assertSame(6.62, $response['bracket5StraightTime']);
+        $this->assertSame(37.07, $response['bracket6LapTime']);
+        $this->assertSame(5.50, $response['bracket6TurnTime']);
+        $this->assertSame(6.70, $response['bracket6StraightTime']);
     }
 
     /**
