@@ -43,9 +43,7 @@ abstract class BaseStadium
         $response = [];
 
         foreach ($keys as $key) {
-            $crawler->filter($key)->each(function ($node) use (&$response, $key) {
-                $response[$key][] = $node->text();
-            });
+            $response[$key] = $this->filterByKey($crawler, $key);
         }
 
         return $response;
