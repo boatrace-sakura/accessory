@@ -27,9 +27,16 @@ class Stadium12 extends BaseStadium implements StadiumInterface
         $baseXpath = 'descendant-or-self::body/div[1]/table[1]';
 
         foreach (range(1, 6) as $bracket) {
-            foreach (range(6, 7) as $key) {
+            $response['bracket' . $bracket . 'RacerName'] = $this->removeSpace(
+                $crawler->filterXPath(
+                    sprintf('%s/tbody[%d]/tr[1]/td[2]/ul/li[2]/a', $baseXpath, $bracket)
+                )->text()
+            );
+
+            foreach (range(5, 7) as $key) {
                 $response[
                     match ($key) {
+                        5 => 'bracket' . $bracket . 'ExhibitionTime',
                         6 => 'bracket' . $bracket . 'LapTime',
                         7 => 'bracket' . $bracket . 'TurnTime',
                     }

@@ -24,10 +24,12 @@ class Stadium08 extends BaseStadium implements StadiumInterface
         $crawlerFormat = '%s/raceguide/kyogi15/%d/';
         $crawlerUrl = sprintf($crawlerFormat, $baseUrl, $raceNumber);
         $crawler = $this->httpBrowser->request('GET', $crawlerUrl);
-        $times = $this->filterByKey($crawler, '.time');
-        $chunkTimes = array_chunk($times, 4);
+        $times = $this->filterByKeys($crawler, ['.racer', '.time']);
+        $chunkTimes = array_chunk($times['.time'], 4);
 
         foreach (range(1, 6) as $bracket) {
+            $response['bracket' . $bracket . 'RacerName'] = preg_split('/\d{4}/u', $this->removeSpace($times['.racer'][$bracket - 1]))[0];
+            $response['bracket' . $bracket . 'ExhibitionTime'] = (float) $chunkTimes[$bracket - 1][0];
             $response['bracket' . $bracket . 'LapTime'] = (float) $chunkTimes[$bracket - 1][1];
             $response['bracket' . $bracket . 'TurnTime'] = (float) $chunkTimes[$bracket - 1][2];
             $response['bracket' . $bracket . 'StraightTime'] = (float) $chunkTimes[$bracket - 1][3];

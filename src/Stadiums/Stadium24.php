@@ -28,6 +28,8 @@ class Stadium24 extends BaseStadium implements StadiumInterface
         $times = $this->filterByKeys($crawler, ['.tei1', '.tei2', '.tei3', '.tei4', '.tei5', '.tei6']);
 
         foreach (range(1, 6) as $bracket) {
+            $response['bracket' . $bracket . 'RacerName'] = $this->removeSpace($times['.tei' . $bracket][1]);
+            $response['bracket' . $bracket . 'ExhibitionTime'] = (float) $times['.tei' . $bracket][3];
             $response['bracket' . $bracket . 'LapTime'] = (float) $times['.tei' . $bracket][4];
             $response['bracket' . $bracket . 'TurnTime'] = (float) $times['.tei' . $bracket][5];
             $response['bracket' . $bracket . 'StraightTime'] = (float) $times['.tei' . $bracket][6];

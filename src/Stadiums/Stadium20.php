@@ -25,11 +25,13 @@ class Stadium20 extends BaseStadium implements StadiumInterface
         $crawlerFormat = '%s/boatrace/wakamatsu/%s/%d';
         $crawlerUrl = sprintf($crawlerFormat, $baseUrl, $date, $raceNumber);
         $crawler = $this->httpBrowser->request('GET', $crawlerUrl);
-        $times = $this->filterByKey($crawler, '.hint');
+        $times = $this->filterByKeys($crawler, ['.names > td', '.hint']);
 
         foreach (range(1, 6) as $bracket) {
-            $response['bracket' . $bracket . 'LapTime'] = (float) $times[$bracket + 5];
-            $response['bracket' . $bracket . 'StraightTime'] = (float) $times[$bracket + 5 + 6];
+            $response['bracket' . $bracket . 'RacerName'] = $this->removeSpace($times['.names > td'][$bracket - 1]);
+            $response['bracket' . $bracket . 'ExhibitionTime'] = (float) $times['.hint'][$bracket - 1];
+            $response['bracket' . $bracket . 'LapTime'] = (float) $times['.hint'][$bracket + 5];
+            $response['bracket' . $bracket . 'StraightTime'] = (float) $times['.hint'][$bracket + 5 + 6];
         }
 
         return $response;

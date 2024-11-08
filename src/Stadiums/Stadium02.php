@@ -27,9 +27,16 @@ class Stadium02 extends BaseStadium implements StadiumInterface
         $crawler = $this->httpBrowser->xmlHttpRequest('GET', $crawlerUrl);
 
         foreach (range(1, 6) as $bracket) {
-            foreach (['rnd', 'cnr', 'str'] as $key) {
+            $response['bracket' . $bracket . 'RacerName'] = $this->removeSpace(
+                $crawler->filterXPath(
+                    sprintf('descendant-or-self::record[%d]/name', $bracket)
+                )->text()
+            );
+
+            foreach (['ttime', 'rnd', 'cnr', 'str'] as $key) {
                 $response[
                     match ($key) {
+                        'ttime' => 'bracket' . $bracket . 'ExhibitionTime',
                         'rnd' => 'bracket' . $bracket . 'LapTime',
                         'cnr' => 'bracket' . $bracket . 'TurnTime',
                         'str' => 'bracket' . $bracket . 'StraightTime',

@@ -25,10 +25,12 @@ class Stadium16 extends BaseStadium implements StadiumInterface
         $crawlerFormat = '%s/hjpc/index/%s/%02d';
         $crawlerUrl = sprintf($crawlerFormat, $baseUrl, $date, $raceNumber);
         $crawler = $this->httpBrowser->request('GET', $crawlerUrl);
-        $times = $this->filterByKey($crawler, '.control');
-        $chunkTimes = array_chunk($times, 5);
+        $times = $this->filterByKeys($crawler, ['.ren-name', '.ren-tenji', '.control']);
+        $chunkTimes = array_chunk($times['.control'], 5);
 
         foreach (range(1, 6) as $bracket) {
+            $response['bracket' . $bracket . 'RacerName'] = $this->removeSpace($times['.ren-name'][$bracket - 1]);
+            $response['bracket' . $bracket . 'ExhibitionTime'] = (float) $times['.ren-tenji'][$bracket - 1];
             $response['bracket' . $bracket . 'LapTime'] = (float) $chunkTimes[$bracket - 1][2];
             $response['bracket' . $bracket . 'TurnTime'] = (float) $chunkTimes[$bracket - 1][3];
             $response['bracket' . $bracket . 'StraightTime'] = (float) $chunkTimes[$bracket - 1][4];
