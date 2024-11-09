@@ -28,8 +28,6 @@ class Stadium04 extends BaseStadium implements StadiumInterface
         $times = $this->filterByKeys($crawler, ['td.name', '.choku_top', '.data']);
         $chunkTimes = array_chunk(array_slice($times['.data'], 3), 6);
 
-        var_dump($times);
-
         foreach (range(1, 6) as $bracket) {
             $response['bracket' . $bracket . 'RacerName'] = preg_split('/\d{4}/u', $this->removeSpace($times['td.name'][$bracket - 1]))[0];
             $response['bracket' . $bracket . 'ExhibitionTime'] = (float) $times['.choku_top'][$bracket * 2 - 2];
