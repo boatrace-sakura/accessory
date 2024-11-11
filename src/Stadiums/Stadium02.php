@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Boatrace\Sakura\Stadiums;
 
 use Carbon\CarbonImmutable as Carbon;
+use InvalidArgumentException;
 
 /**
  * @author shimomo
@@ -27,23 +28,31 @@ class Stadium02 extends BaseStadium implements StadiumInterface
         $crawler = $this->httpBrowser->xmlHttpRequest('GET', $crawlerUrl);
 
         foreach (range(1, 6) as $bracket) {
-            $response['bracket' . $bracket . 'RacerName'] = $this->removeSpace(
-                $crawler->filterXPath(
-                    sprintf('descendant-or-self::record[%d]/name', $bracket)
-                )->text()
-            );
+            try {
+                $response['bracket' . $bracket . 'RacerName'] = $this->removeSpace(
+                    $crawler->filterXPath(
+                        sprintf('descendant-or-self::record[%d]/name', $bracket)
+                    )->text()
+                );
 
-            foreach (['ttime', 'rnd', 'cnr', 'str'] as $key) {
-                $response[
-                    match ($key) {
-                        'ttime' => 'bracket' . $bracket . 'ExhibitionTime',
-                        'rnd' => 'bracket' . $bracket . 'LapTime',
-                        'cnr' => 'bracket' . $bracket . 'TurnTime',
-                        'str' => 'bracket' . $bracket . 'StraightTime',
-                    }
-                ] = (float) $crawler->filterXPath(
-                    sprintf('descendant-or-self::record[%d]/%s', $bracket, $key)
-                )->text();
+                foreach (['ttime', 'rnd', 'cnr', 'str'] as $key) {
+                    $response[
+                        match ($key) {
+                            'ttime' => 'bracket' . $bracket . 'ExhibitionTime',
+                            'rnd' => 'bracket' . $bracket . 'LapTime',
+                            'cnr' => 'bracket' . $bracket . 'TurnTime',
+                            'str' => 'bracket' . $bracket . 'StraightTime',
+                        }
+                    ] = (float) $crawler->filterXPath(
+                        sprintf('descendant-or-self::record[%d]/%s', $bracket, $key)
+                    )->text();
+                }
+            } catch (InvalidArgumentException $exception) {
+                $response['bracket' . $bracket . 'RacerName'] = '';
+                $response['bracket' . $bracket . 'ExhibitionTime'] = 0;
+                $response['bracket' . $bracket . 'LapTime'] = 0;
+                $response['bracket' . $bracket . 'TurnTime'] = 0;
+                $response['bracket' . $bracket . 'StraightTime'] = 0;
             }
         }
 
