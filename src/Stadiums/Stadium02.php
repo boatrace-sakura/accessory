@@ -26,16 +26,19 @@ class Stadium02 extends BaseStadium implements StadiumInterface
         $crawlerFormat = '%s/xml/kaisai/%s/race_table_original_%02d.xml';
         $crawlerUrl = sprintf($crawlerFormat, $baseUrl, $date, $raceNumber);
         $crawler = $this->httpBrowser->xmlHttpRequest('GET', $crawlerUrl);
+        $racerNameFormat = 'descendant-or-self::record[%d]/name';
+        $timeFormat = 'descendant-or-self::record[%d]/%s';
 
         foreach (range(1, 6) as $bracket) {
-            try {
-                $response['bracket' . $bracket . 'RacerName'] = $this->removeSpace(
-                    $crawler->filterXPath(
-                        sprintf('descendant-or-self::record[%d]/name', $bracket)
-                    )->text()
-                );
+            $xpath = sprintf($racerNameFormat, $bracket);
+            if ($crawler->filterXPath($xpath)->count()) {
+                $response['bracket' . $bracket . 'RacerName'] =
+                    $this->removeSpace($crawler->filterXPath($xpath)->text());
+            }
 
-                foreach (['ttime', 'rnd', 'cnr', 'str'] as $key) {
+            foreach (['ttime', 'rnd', 'cnr', 'str'] as $key) {
+                $xpath = sprintf($timeFormat, $bracket, $key);
+                if ($crawler->filterXPath($xpath)->count()) {
                     $response[
                         match ($key) {
                             'ttime' => 'bracket' . $bracket . 'ExhibitionTime',
@@ -43,16 +46,8 @@ class Stadium02 extends BaseStadium implements StadiumInterface
                             'cnr' => 'bracket' . $bracket . 'TurnTime',
                             'str' => 'bracket' . $bracket . 'StraightTime',
                         }
-                    ] = (float) $crawler->filterXPath(
-                        sprintf('descendant-or-self::record[%d]/%s', $bracket, $key)
-                    )->text();
+                    ] = (float) $crawler->filterXPath($xpath)->text();
                 }
-            } catch (InvalidArgumentException $exception) {
-                $response['bracket' . $bracket . 'RacerName'] = '';
-                $response['bracket' . $bracket . 'ExhibitionTime'] = 0;
-                $response['bracket' . $bracket . 'LapTime'] = 0;
-                $response['bracket' . $bracket . 'TurnTime'] = 0;
-                $response['bracket' . $bracket . 'StraightTime'] = 0;
             }
         }
 
