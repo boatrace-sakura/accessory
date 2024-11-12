@@ -27,45 +27,31 @@ class Stadium15 extends BaseStadium implements StadiumInterface
         $crawlerUrl = sprintf($crawlerFormat, $baseUrl, $raceNumber);
         $crawler = $this->httpBrowser->request('GET', $crawlerUrl);
         $baseXpath = 'descendant-or-self::body/div[2]/div/div/div[3]/table';
+        $racerNameFormat = '%s/tbody[%d]/tr[%d]/td[2]/div/div/div[2]/div[2]/a';
+        $timeFormat = '%s/tbody[%d]/tr[%d]/td[%d]';
 
         foreach (range(1, 6) as $bracket) {
-            foreach (range(5, 8) as $key) {
-                try {
-                    $response['bracket' . $bracket . 'RacerName'] = $this->removeSpace(
-                        $crawler->filterXPath(
-                            sprintf('%s/tbody[%d]/tr[1]/td[2]/div/div/div[2]/div[2]/a', $baseXpath, $bracket)
-                        )->text()
-                    );
-                } catch (InvalidArgumentException $exception) {
-                    $response['bracket' . $bracket . 'RacerName'] = $this->removeSpace(
-                        $crawler->filterXPath(
-                            sprintf('%s/tbody[%d]/tr[2]/td[2]/div/div/div[2]/div[2]/a', $baseXpath, $bracket)
-                        )->text()
-                    );
+            foreach (range(1, 2) as $absence) {
+                $xpath = sprintf($racerNameFormat, $baseXpath, $bracket, $absence);
+                if ($crawler->filterXPath($xpath)->count()) {
+                    $response['bracket' . $bracket . 'RacerName'] =
+                        $this->removeSpace($crawler->filterXPath($xpath)->text());
                 }
+            }
 
-                try {
-                    $response[
-                        match ($key) {
-                            5 => 'bracket' . $bracket . 'ExhibitionTime',
-                            6 => 'bracket' . $bracket . 'LapTime',
-                            7 => 'bracket' . $bracket . 'TurnTime',
-                            8 => 'bracket' . $bracket . 'StraightTime',
-                        }
-                    ] = (float) $crawler->filterXPath(
-                        sprintf('%s/tbody[%d]/tr[1]/td[%d]', $baseXpath, $bracket, $key)
-                    )->text();
-                } catch (InvalidArgumentException $exception) {
-                    $response[
-                        match ($key) {
-                            5 => 'bracket' . $bracket . 'ExhibitionTime',
-                            6 => 'bracket' . $bracket . 'LapTime',
-                            7 => 'bracket' . $bracket . 'TurnTime',
-                            8 => 'bracket' . $bracket . 'StraightTime',
-                        }
-                    ] = (float) $crawler->filterXPath(
-                        sprintf('%s/tbody[%d]/tr[2]/td[%d]', $baseXpath, $bracket, $key)
-                    )->text();
+            foreach (range(5, 8) as $key) {
+                foreach (range(1, 2) as $absence) {
+                    $xpath = sprintf($timeFormat, $baseXpath, $bracket, $absence, $key);
+                    if ($crawler->filterXPath($xpath)->count()) {
+                        $response[
+                            match ($key) {
+                                5 => 'bracket' . $bracket . 'ExhibitionTime',
+                                6 => 'bracket' . $bracket . 'LapTime',
+                                7 => 'bracket' . $bracket . 'TurnTime',
+                                8 => 'bracket' . $bracket . 'StraightTime',
+                            }
+                        ] = (float) $crawler->filterXPath($xpath)->text();
+                    }
                 }
             }
         }
