@@ -26,15 +26,16 @@ class Stadium17 extends BaseStadium implements StadiumInterface
         $crawlerUrl = sprintf($crawlerFormat, $baseUrl, $date, $raceNumber);
         $crawler = $this->httpBrowser->request('POST', $crawlerUrl);
         $baseXpath = 'descendant-or-self::body/table[6]/tbody';
+        $racerNameFormat = '%s/tr[%d]/td[2]/p[1]/a';
+        $timeFormat = '%s/tr[%d]/td[%d]';
 
         foreach (range(1, 6) as $bracket) {
-            $response['bracket' . $bracket . 'RacerName'] = $this->removeSpace(
-                $crawler->filterXPath(
-                    sprintf('%s/tr[%d]/td[2]/p[1]/a', $baseXpath, $bracket * 2 + 1)
-                )->text()
-            );
+            $xpath = sprintf($racerNameFormat, $baseXpath, $bracket * 2 + 1);
+            $response['bracket' . $bracket . 'RacerName'] =
+                $this->removeSpace($crawler->filterXPath($xpath)->text());
 
             foreach (range(5, 8) as $key) {
+                $xpath = sprintf($timeFormat, $baseXpath, $bracket * 2 + 1, $key);
                 $response[
                     match ($key) {
                         5 => 'bracket' . $bracket . 'ExhibitionTime',
@@ -42,9 +43,7 @@ class Stadium17 extends BaseStadium implements StadiumInterface
                         7 => 'bracket' . $bracket . 'TurnTime',
                         8 => 'bracket' . $bracket . 'StraightTime',
                     }
-                ] = (float) $crawler->filterXPath(
-                    sprintf('%s/tr[%d]/td[%d]', $baseXpath, $bracket * 2 + 1, $key)
-                )->text();
+                ] = (float) $crawler->filterXPath($xpath)->text();
             }
         }
 
