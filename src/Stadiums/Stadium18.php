@@ -28,7 +28,7 @@ class Stadium18 extends BaseStadium implements StadiumInterface
         $times = $this->filterByKeys($crawler, ['.com-rname', '.col10', '.col11', '.col12']);
 
         foreach (range(1, 6) as $bracket) {
-            $response['bracket' . $bracket . 'RacerName'] = $this->removeSpace($times['.com-rname'][$bracket - 1]);
+            $response['bracket' . $bracket . 'RacerName'] = $this->removeSpace($times['.com-rname'][$bracket - 1] ?? '');
             $response['bracket' . $bracket . 'ExhibitionTime'] = (float) ($times['.col10'][$bracket] ?? 0);
             $response['bracket' . $bracket . 'LapTime'] = (float) ($times['.col11'][$bracket + 1] ?? 0);
             $response['bracket' . $bracket . 'TurnTime'] = (float) ($times['.col12'][$bracket - 1] ?? 0);

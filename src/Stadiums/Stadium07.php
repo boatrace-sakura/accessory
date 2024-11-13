@@ -29,11 +29,11 @@ class Stadium07 extends BaseStadium implements StadiumInterface
         $chunkTimes = array_chunk($times['.score'], 4);
 
         foreach (range(1, 6) as $bracket) {
-            $response['bracket' . $bracket . 'RacerName'] = $this->removeSpace($times['.name'][$bracket]);
-            $response['bracket' . $bracket . 'ExhibitionTime'] = (float) $chunkTimes[$bracket][0];
-            $response['bracket' . $bracket . 'LapTime'] = (float) $chunkTimes[$bracket][1];
-            $response['bracket' . $bracket . 'TurnTime'] = (float) $chunkTimes[$bracket][2];
-            $response['bracket' . $bracket . 'StraightTime'] = (float) $chunkTimes[$bracket][3];
+            $response['bracket' . $bracket . 'RacerName'] = $this->removeSpace($times['.name'][$bracket] ?? '');
+            $response['bracket' . $bracket . 'ExhibitionTime'] = (float) ($chunkTimes[$bracket][0] ?? 0);
+            $response['bracket' . $bracket . 'LapTime'] = (float) ($chunkTimes[$bracket][1] ?? 0);
+            $response['bracket' . $bracket . 'TurnTime'] = (float) ($chunkTimes[$bracket][2] ?? 0);
+            $response['bracket' . $bracket . 'StraightTime'] = (float) ($chunkTimes[$bracket][3] ?? 0);
         }
 
         return $response;

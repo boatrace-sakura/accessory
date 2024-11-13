@@ -28,11 +28,11 @@ class Stadium23 extends BaseStadium implements StadiumInterface
         $times = $this->filterByKeys($crawler, ['.com-rname', '.col5', '.col6', '.col7', '.col8']);
 
         foreach (range(1, 6) as $bracket) {
-            $response['bracket' . $bracket . 'RacerName'] = $this->removeSpace($times['.com-rname'][$bracket - 1]);
-            $response['bracket' . $bracket . 'ExhibitionTime'] = (float) $times['.col5'][$bracket];
-            $response['bracket' . $bracket . 'LapTime'] = (float) $times['.col6'][$bracket * 2 - 1];
-            $response['bracket' . $bracket . 'TurnTime'] = (float) $times['.col7'][$bracket];
-            $response['bracket' . $bracket . 'StraightTime'] = (float) $times['.col8'][$bracket - 1];
+            $response['bracket' . $bracket . 'RacerName'] = $this->removeSpace($times['.com-rname'][$bracket - 1] ?? '');
+            $response['bracket' . $bracket . 'ExhibitionTime'] = (float) ($times['.col5'][$bracket] ?? 0);
+            $response['bracket' . $bracket . 'LapTime'] = (float) ($times['.col6'][$bracket * 2 - 1] ?? 0);
+            $response['bracket' . $bracket . 'TurnTime'] = (float) ($times['.col7'][$bracket] ?? 0);
+            $response['bracket' . $bracket . 'StraightTime'] = (float) ($times['.col8'][$bracket - 1] ?? 0);
         }
 
         return $response;
