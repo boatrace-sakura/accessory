@@ -38,4 +38,30 @@ class Stadium16 extends BaseStadium implements StadiumInterface
 
         return $response;
     }
+
+    /**
+     * @param  int          $raceNumber
+     * @param  string|null  $date
+     * @return array
+     */
+    public function comments(int $raceNumber, ?string $date = null): array
+    {
+        $response = [];
+
+        $date = Carbon::parse($date ?? 'today')->format('Ymd');
+        $baseUrl = 'https://hj.kojima-yosou.com';
+        $crawlerFormat = '%s/hjpc/index/%s/%02d';
+        $crawlerUrl = sprintf($crawlerFormat, $baseUrl, $date, $raceNumber);
+        $crawler = $this->httpBrowser->request('GET', $crawlerUrl);
+        $comments = $this->filterByKeys($crawler, ['.ren-name', 'td.comment']);
+
+        foreach (range(1, 6) as $bracket) {
+            $response['bracket' . $bracket . 'RacerName'] =
+                $this->removeSpace($comments['.ren-name'][$bracket - 1]);
+            $response['bracket' . $bracket . 'RacerComment'] =
+                $this->removeSpace($comments['td.comment'][$bracket - 1]);
+        }
+
+        return $response;
+    }
 }

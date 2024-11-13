@@ -45,4 +45,22 @@ class Stadium03Test extends PHPUnitTestCase
         $response = $this->stadium->times(raceNumber: 8, date: '2024-01-07');
         $this->assertSame([], $response);
     }
+
+    /**
+     * @return void
+     */
+    public function testComments01(): void
+    {
+        $response = $this->stadium->comments(raceNumber: 1, date: '2024-01-07');
+        $this->assertSame([], $response);
+    }
+
+    /**
+     * @return void
+     */
+    public function testComments02(): void
+    {
+        $response = $this->stadium->comments(raceNumber: 8, date: '2024-01-07');
+        $this->assertSame([], $response);
+    }
 }

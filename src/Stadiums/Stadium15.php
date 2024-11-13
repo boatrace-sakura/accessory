@@ -57,4 +57,37 @@ class Stadium15 extends BaseStadium implements StadiumInterface
 
         return $response;
     }
+
+    /**
+     * @param  int          $raceNumber
+     * @param  string|null  $date
+     * @return array
+     */
+    public function comments(int $raceNumber, ?string $date = null): array
+    {
+        $response = [];
+
+        $date = Carbon::parse($date ?? 'today')->format('Ymd');
+        $baseUrl = 'https://www.marugameboat.jp';
+        $crawlerFormat = '%s/asp/kyogi/15/pc/yoso05%02d.htm?slide=3';
+        $crawlerUrl = sprintf($crawlerFormat, $baseUrl, $raceNumber);
+        $crawler = $this->httpBrowser->request('GET', $crawlerUrl);
+        $baseXpath = 'descendant-or-self::body/div[2]/div/div';
+        $racerNameFormat = '%s/div[3]/table/tbody[%d]/tr[1]/td[2]/div/div/div[2]/div[2]/a';
+        $racerCommentFormat = '%s/div[4]/table/tbody[%d]/tr/td[3]/p[2]/text()';
+
+        foreach (range(1, 6) as $bracket) {
+            $response['bracket' . $bracket . 'RacerName'] =
+                $this->removeSpace($crawler->filterXPath(
+                    sprintf($racerNameFormat, $baseXpath, $bracket)
+                )->text());
+
+            $response['bracket' . $bracket . 'RacerComment'] =
+                $this->removeSpace($crawler->filterXPath(
+                    sprintf($racerCommentFormat, $baseXpath, $bracket)
+                )->text());
+        }
+
+        return $response;
+    }
 }

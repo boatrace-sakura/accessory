@@ -49,4 +49,35 @@ class Stadium17 extends BaseStadium implements StadiumInterface
 
         return $response;
     }
+
+    /**
+     * @param  int          $raceNumber
+     * @param  string|null  $date
+     * @return array
+     */
+    public function comments(int $raceNumber, ?string $date = null): array
+    {
+        $response = [];
+
+        $date = Carbon::parse($date ?? 'today')->format('Ymd');
+        $baseUrl = 'https://www.boatrace-miyajima.com';
+        $crawlerFormat = '%s/race_common/require/kaisai_reload.php?date=%s&race=%d';
+        $crawlerUrl = sprintf($crawlerFormat, $baseUrl, $date, $raceNumber);
+        $crawler = $this->httpBrowser->request('POST', $crawlerUrl);
+        $baseXpath = 'descendant-or-self::body/div[6]/div[1]/table/tbody';
+
+        foreach (range(1, 6) as $bracket) {
+            $response['bracket' . $bracket . 'RacerName'] =
+                $this->removeSpace($crawler->filterXPath(
+                    sprintf('%s/tr[%d]/td[2]/p[1]/a', $baseXpath, $bracket + 1)
+                )->text());
+
+            $response['bracket' . $bracket . 'RacerComment'] =
+                $this->removeSpace($crawler->filterXPath(
+                    sprintf('%s/tr[%d]/td[4]/p/text()', $baseXpath, $bracket + 1)
+                )->text());
+        }
+
+        return $response;
+    }
 }

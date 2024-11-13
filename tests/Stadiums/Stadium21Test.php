@@ -103,4 +103,44 @@ class Stadium21Test extends PHPUnitTestCase
         $this->assertSame(8.25, $response['bracket6TurnTime']);
         $this->assertSame(7.43, $response['bracket6StraightTime']);
     }
+
+    /**
+     * @return void
+     */
+    public function testComments01(): void
+    {
+        $response = $this->stadium->comments(raceNumber: 1, date: '2024-01-01');
+        $this->assertSame('新開航', $response['bracket1RacerName']);
+        $this->assertSame('変わらずいい。枠番で調整をする', $response['bracket1RacerComment']);
+        $this->assertSame('松尾宣邦', $response['bracket2RacerName']);
+        $this->assertSame('直線は甘いが出足は上向いている', $response['bracket2RacerComment']);
+        $this->assertSame('中渡修作', $response['bracket3RacerName']);
+        $this->assertSame('※バランスがよく中堅上位に到達', $response['bracket3RacerComment']);
+        $this->assertSame('羽野諒', $response['bracket4RacerName']);
+        $this->assertSame('ペラとバルブ調整で体感が上向き', $response['bracket4RacerComment']);
+        $this->assertSame('坂井滉哉', $response['bracket5RacerName']);
+        $this->assertSame('下がる感じはないが出足が良くない', $response['bracket5RacerComment']);
+        $this->assertSame('前田健太郎', $response['bracket6RacerName']);
+        $this->assertSame('伸びが来ない。ターン重視でいく', $response['bracket6RacerComment']);
+    }
+
+    /**
+     * @return void
+     */
+    public function testComments02(): void
+    {
+        $response = $this->stadium->comments(raceNumber: 2, date: '2024-01-01');
+        $this->assertSame('中亮太', $response['bracket1RacerName']);
+        $this->assertSame('いい仕上がり。伸び、回り足がいい', $response['bracket1RacerComment']);
+        $this->assertSame('小川広大', $response['bracket2RacerName']);
+        $this->assertSame('Ｓ届いていたし乗った感じ良かった', $response['bracket2RacerComment']);
+        $this->assertSame('松尾基成', $response['bracket3RacerName']);
+        $this->assertSame('足はいいけど乗り味や押しが甘い', $response['bracket3RacerComment']);
+        $this->assertSame('塩田北斗', $response['bracket4RacerName']);
+        $this->assertSame('レース失敗だけで足は全然いいです', $response['bracket4RacerComment']);
+        $this->assertSame('嘉手苅徹哉', $response['bracket5RacerName']);
+        $this->assertSame('伸びはいいけどターンが良くない', $response['bracket5RacerComment']);
+        $this->assertSame('田中京介', $response['bracket6RacerName']);
+        $this->assertSame('出足寄りにして出口で押していた', $response['bracket6RacerComment']);
+    }
 }

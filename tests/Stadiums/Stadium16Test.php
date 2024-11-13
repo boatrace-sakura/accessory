@@ -103,4 +103,44 @@ class Stadium16Test extends PHPUnitTestCase
         $this->assertSame(6.13, $response['bracket6TurnTime']);
         $this->assertSame(6.67, $response['bracket6StraightTime']);
     }
+
+    /**
+     * @return void
+     */
+    public function testComments01(): void
+    {
+        $response = $this->stadium->comments(raceNumber: 1, date: '2024-01-01');
+        $this->assertSame('浮田圭浩', $response['bracket1RacerName']);
+        $this->assertSame('４日目は展開があって３着になれた。', $response['bracket1RacerComment']);
+        $this->assertSame('阪本勇介', $response['bracket2RacerName']);
+        $this->assertSame('＊８Ｒは１号艇でスローの４コースとなり３着', $response['bracket2RacerComment']);
+        $this->assertSame('福田理', $response['bracket3RacerName']);
+        $this->assertSame('安定板が付いた後半は悪くなかった。乗り心地を求めて調整する。', $response['bracket3RacerComment']);
+        $this->assertSame('峰重力也', $response['bracket4RacerName']);
+        $this->assertSame('変わらず足は普通。自分次第。', $response['bracket4RacerComment']);
+        $this->assertSame('立間充宏', $response['bracket5RacerName']);
+        $this->assertSame('ダメ。（２Ｒは３コースから４着、１２Ｒは２コースから粘って３着）', $response['bracket5RacerComment']);
+        $this->assertSame('山下昂大', $response['bracket6RacerName']);
+        $this->assertSame('今節は合わせ切れていない。エンジンは悪くないと思う。', $response['bracket6RacerComment']);
+    }
+
+    /**
+     * @return void
+     */
+    public function testComments02(): void
+    {
+        $response = $this->stadium->comments(raceNumber: 11, date: '2024-01-01');
+        $this->assertSame('藤原啓史朗', $response['bracket1RacerName']);
+        $this->assertSame('安定板が付いたせいか出足がなかった。合えばバランス型で上位。', $response['bracket1RacerComment']);
+        $this->assertSame('林祐介', $response['bracket2RacerName']);
+        $this->assertSame('足は変わらずいい。行き足が良くてＳしやすいし、乗り心地もいい。', $response['bracket2RacerComment']);
+        $this->assertSame('岡瀬正人', $response['bracket3RacerName']);
+        $this->assertSame('安定板にチルト０で対応。バランスを取った分少し伸びは落ちた。', $response['bracket3RacerComment']);
+        $this->assertSame('入海馨', $response['bracket4RacerName']);
+        $this->assertSame('序盤よりだいぶ良くなって戦える。足は普通。何か特徴を付けたい。', $response['bracket4RacerComment']);
+        $this->assertSame('渡邉和将', $response['bracket5RacerName']);
+        $this->assertSame('毎回ペラは叩いている。安定板が付いた方が足も乗り心地もいい。', $response['bracket5RacerComment']);
+        $this->assertSame('平尾崇典', $response['bracket6RacerName']);
+        $this->assertSame('ペラの合わせ方次第だが、ミスしている。', $response['bracket6RacerComment']);
+    }
 }

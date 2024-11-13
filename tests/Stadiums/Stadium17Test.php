@@ -103,4 +103,44 @@ class Stadium17Test extends PHPUnitTestCase
         $this->assertSame(5.83, $response['bracket6TurnTime']);
         $this->assertSame(7.31, $response['bracket6StraightTime']);
     }
+
+    /**
+     * @return void
+     */
+    public function testComments01(): void
+    {
+        $response = $this->stadium->comments(raceNumber: 1, date: '2024-01-01');
+        $this->assertSame('田中辰彦', $response['bracket1RacerName']);
+        $this->assertSame('目立つ部分が無い足です。もう少しプロペラを調整します。', $response['bracket1RacerComment']);
+        $this->assertSame('永田義紘', $response['bracket2RacerName']);
+        $this->assertSame('ターンする時の足が良い感じがします。このままでレースします。', $response['bracket2RacerComment']);
+        $this->assertSame('角浜修', $response['bracket3RacerName']);
+        $this->assertSame('中堅レベルの足で悪くないですね。伸びられる事もない。', $response['bracket3RacerComment']);
+        $this->assertSame('大原祥昌', $response['bracket4RacerName']);
+        $this->assertSame('エンジンは弱めなので、何か整備をしてみます。', $response['bracket4RacerComment']);
+        $this->assertSame('下寺秀和', $response['bracket5RacerName']);
+        $this->assertSame('伸びと出足のバランスが取れて、悪くない足です。', $response['bracket5RacerComment']);
+        $this->assertSame('向井田直弥', $response['bracket6RacerName']);
+        $this->assertSame('少し伸びが足りないけど、それ以外は悪くない感じです。', $response['bracket6RacerComment']);
+    }
+
+    /**
+     * @return void
+     */
+    public function testComments02(): void
+    {
+        $response = $this->stadium->comments(raceNumber: 3, date: '2024-01-01');
+        $this->assertSame('池上隆行', $response['bracket1RacerName']);
+        $this->assertSame('行き足から伸びにかけて少し弱い。プロペラを調整してみる。', $response['bracket1RacerComment']);
+        $this->assertSame('大上卓人', $response['bracket2RacerName']);
+        $this->assertSame('ターン出口の足が良いですね。プロペラの調整だけ続けます。', $response['bracket2RacerComment']);
+        $this->assertSame('別府昌樹', $response['bracket3RacerName']);
+        $this->assertSame('回転が合っていないので、プロペラを調整してみます。', $response['bracket3RacerComment']);
+        $this->assertSame('正木聖賢', $response['bracket4RacerName']);
+        $this->assertSame('プロペラを調整して、足は上向いてきています。', $response['bracket4RacerComment']);
+        $this->assertSame('木山和幸', $response['bracket5RacerName']);
+        $this->assertSame('プロペラもそのままで、足は中堅レベルはあるよ。', $response['bracket5RacerComment']);
+        $this->assertSame('三宅健太', $response['bracket6RacerName']);
+        $this->assertSame('伸びが少し弱いですね。エンジン本体を整備してみます。', $response['bracket6RacerComment']);
+    }
 }

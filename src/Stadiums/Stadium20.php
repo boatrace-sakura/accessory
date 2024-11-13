@@ -36,4 +36,30 @@ class Stadium20 extends BaseStadium implements StadiumInterface
 
         return $response;
     }
+
+    /**
+     * @param  int          $raceNumber
+     * @param  string|null  $date
+     * @return array
+     */
+    public function comments(int $raceNumber, ?string $date = null): array
+    {
+        $response = [];
+
+        $date = Carbon::parse($date ?? 'today')->format('Ymd');
+        $baseUrl = 'https://nikkansports.raceyosou.jp';
+        $crawlerFormat = '%s/boatrace/wakamatsu/%s/%d';
+        $crawlerUrl = sprintf($crawlerFormat, $baseUrl, $date, $raceNumber);
+        $crawler = $this->httpBrowser->request('GET', $crawlerUrl);
+        $comments = $this->filterByKeys($crawler, ['.names > td', '#comments > dl > dd']);
+
+        foreach (range(1, 6) as $bracket) {
+            $response['bracket' . $bracket . 'RacerName'] =
+                $this->removeSpace($comments['.names > td'][$bracket - 1] ?? '');
+            $response['bracket' . $bracket . 'RacerComment'] =
+                $this->removeSpace($comments['#comments > dl > dd'][$bracket - 1] ?? '');
+        }
+
+        return $response;
+    }
 }

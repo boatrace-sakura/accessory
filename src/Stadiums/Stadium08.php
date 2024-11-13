@@ -37,4 +37,29 @@ class Stadium08 extends BaseStadium implements StadiumInterface
 
         return $response;
     }
+
+    /**
+     * @param  int          $raceNumber
+     * @param  string|null  $date
+     * @return array
+     */
+    public function comments(int $raceNumber, ?string $date = null): array
+    {
+        $response = [];
+
+        $baseUrl = 'https://www.boatrace-tokoname.jp';
+        $crawlerFormat = '%s/raceguide/kyogi13/%d/';
+        $crawlerUrl = sprintf($crawlerFormat, $baseUrl, $raceNumber);
+        $crawler = $this->httpBrowser->request('GET', $crawlerUrl);
+        $comments = $this->filterByKeys($crawler, ['.racer', '.r_come']);
+
+        foreach (range(1, 6) as $bracket) {
+            $response['bracket' . $bracket . 'RacerName'] =
+                $this->removeSpace(preg_split('/\d{4}/u', $comments['.racer'][$bracket - 1] ?? '')[0] ?? '');
+            $response['bracket' . $bracket . 'RacerComment'] =
+                $this->removeSpace($comments['.r_come'][$bracket - 1] ?? '');
+        }
+
+        return $response;
+    }
 }

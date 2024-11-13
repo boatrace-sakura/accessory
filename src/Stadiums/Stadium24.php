@@ -37,4 +37,30 @@ class Stadium24 extends BaseStadium implements StadiumInterface
 
         return $response;
     }
+
+    /**
+     * @param  int          $raceNumber
+     * @param  string|null  $date
+     * @return array
+     */
+    public function comments(int $raceNumber, ?string $date = null): array
+    {
+        $response = [];
+
+        $date = Carbon::parse($date ?? 'today')->format('Ymd');
+        $baseUrl = 'https://omurakyotei.jp';
+        $crawlerFormat = '%s/yosou/include/new_top_iframe_comment_2.php?day=%s&race=1&race=%02d';
+        $crawlerUrl = sprintf($crawlerFormat, $baseUrl, $date, $raceNumber);
+        $crawler = $this->httpBrowser->request('GET', $crawlerUrl);
+        $comments = $this->filterByKeys($crawler, ['.tei1', '.tei2', '.tei3', '.tei4', '.tei5', '.tei6']);
+
+        foreach (range(1, 6) as $bracket) {
+            $response['bracket' . $bracket . 'RacerName'] =
+                $this->removeSpace($comments['.tei' . $bracket][1] ?? '');
+            $response['bracket' . $bracket . 'RacerComment'] =
+                $this->removeSpace(preg_replace('/\[.+\]/u', '', $comments['.tei' . $bracket][2] ?? ''));
+        }
+
+        return $response;
+    }
 }

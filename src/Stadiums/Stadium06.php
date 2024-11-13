@@ -38,4 +38,37 @@ class Stadium06 extends BaseStadium implements StadiumInterface
 
         return $response;
     }
+
+    /**
+     * @param  int          $raceNumber
+     * @param  string|null  $date
+     * @return array
+     */
+    public function comments(int $raceNumber, ?string $date = null): array
+    {
+        $response = [];
+
+        $date = Carbon::parse($date ?? 'today')->format('Ymd');
+        $baseUrl = 'https://nikkansports.raceyosou.jp';
+        $crawlerFormat = '%s/boatrace/hamanako/%s/%d';
+        $crawlerUrl = sprintf($crawlerFormat, $baseUrl, $date, $raceNumber);
+        $crawler = $this->httpBrowser->request('GET', $crawlerUrl);
+        $comments = $this->filterByKeys($crawler, [
+            '.comment_table > tr > th',
+            '.comment_table > tr > td',
+        ]);
+
+        foreach (range(1, 6) as $bracket) {
+            $pattern = '/前日のコメント(.+)試運転記者の目/u';
+            $subject = $comments['.comment_table > tr > td'][$bracket - 1] ?? '';
+            preg_match($pattern, $subject, $matches);
+
+            $response['bracket' . $bracket . 'RacerName'] =
+                $this->removeSpace($comments['.comment_table > tr > th'][$bracket - 1] ?? '');
+            $response['bracket' . $bracket . 'RacerComment'] =
+                $this->removeSpace($matches[1] ?? '');
+        }
+
+        return $response;
+    }
 }

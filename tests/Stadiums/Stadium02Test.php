@@ -103,4 +103,22 @@ class Stadium02Test extends PHPUnitTestCase
         $this->assertSame(5.63, $response['bracket6TurnTime']);
         $this->assertSame(7.07, $response['bracket6StraightTime']);
     }
+
+    /**
+     * @return void
+     */
+    public function testComments01(): void
+    {
+        $response = $this->stadium->comments(raceNumber: 1, date: '2024-01-05');
+        $this->assertSame([], $response);
+    }
+
+    /**
+     * @return void
+     */
+    public function testComments02(): void
+    {
+        $response = $this->stadium->comments(raceNumber: 3, date: '2024-01-05');
+        $this->assertSame([], $response);
+    }
 }
