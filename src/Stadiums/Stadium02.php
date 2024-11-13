@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Boatrace\Sakura\Stadiums;
 
 use Carbon\CarbonImmutable as Carbon;
-use InvalidArgumentException;
 
 /**
  * @author shimomo
