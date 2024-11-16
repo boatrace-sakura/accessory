@@ -205,7 +205,7 @@ class AccessoryTest extends PHPUnitTestCase
     /**
      * @return void
      */
-    public function testStadium10(): void
+    public function testTimes10(): void
     {
         $response = Accessory::times(stadiumId: 10, raceNumber: 1, date: '2024-01-18');
         $this->assertSame('大上卓人', $response['bracket1RacerName']);
