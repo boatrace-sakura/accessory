@@ -329,7 +329,7 @@ class MainAccessoryTest extends PHPUnitTestCase
     /**
      * @return void
      */
-    public function testStadium14(): void
+    public function testTimes14(): void
     {
         $response = $this->accessory->times(stadiumId: 14, raceNumber: 1, date: '2024-01-01');
         $this->assertSame('市橋卓士', $response['bracket1RacerName']);
