@@ -9,6 +9,9 @@ return [
     'Stadium02' => \DI\create('\Boatrace\Sakura\Stadiums\Stadium02')->constructor(
         \DI\get('HttpBrowser')
     ),
+    'Stadium03' => \DI\create('\Boatrace\Sakura\Stadiums\Stadium03')->constructor(
+        \DI\get('HttpBrowser')
+    ),
     'Stadium04' => \DI\create('\Boatrace\Sakura\Stadiums\Stadium04')->constructor(
         \DI\get('HttpBrowser')
     ),
@@ -22,6 +25,9 @@ return [
         \DI\get('HttpBrowser')
     ),
     'Stadium08' => \DI\create('\Boatrace\Sakura\Stadiums\Stadium08')->constructor(
+        \DI\get('HttpBrowser')
+    ),
+    'Stadium09' => \DI\create('\Boatrace\Sakura\Stadiums\Stadium09')->constructor(
         \DI\get('HttpBrowser')
     ),
     'Stadium10' => \DI\create('\Boatrace\Sakura\Stadiums\Stadium10')->constructor(
