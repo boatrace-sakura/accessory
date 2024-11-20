@@ -58,7 +58,7 @@ class Stadium23 extends BaseStadium implements StadiumInterface
             $response['bracket' . $bracket . 'RacerName'] =
                 $this->removeSpace($comments['.com-rname'][$bracket - 1] ?? '');
             $response['bracket' . $bracket . 'RacerComment'] =
-                $this->removeSpace($comments['.col3'][$bracket] ?? '');
+                $this->removeSpace(preg_replace('/（.+現在）/u', '', $comments['.col3'][$bracket] ?? ''));
         }
 
         return $response;
