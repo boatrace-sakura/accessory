@@ -111,17 +111,23 @@ class Stadium14Test extends PHPUnitTestCase
     {
         $response = $this->stadium->comments(raceNumber: 1, date: '2024-01-01');
         $this->assertSame('市橋卓士', $response['bracket1RacerName']);
-        $this->assertSame('初日と変わらず、完全な伸び型', $response['bracket1RacerComment']);
+        $this->assertSame('前日コメント', $response['bracket1RacerComment1Label']);
+        $this->assertSame('初日と変わらず、完全な伸び型', $response['bracket1RacerComment1']);
         $this->assertSame('武田信一', $response['bracket2RacerName']);
-        $this->assertSame('ペラの微調整ぐらいで変わらない', $response['bracket2RacerComment']);
+        $this->assertSame('前日コメント', $response['bracket2RacerComment1Label']);
+        $this->assertSame('ペラの微調整ぐらいで変わらない', $response['bracket2RacerComment1']);
         $this->assertSame('井手良太', $response['bracket3RacerName']);
-        $this->assertSame('後半が今節では一番ましだった', $response['bracket3RacerComment']);
+        $this->assertSame('前日コメント', $response['bracket3RacerComment1Label']);
+        $this->assertSame('後半が今節では一番ましだった', $response['bracket3RacerComment1']);
         $this->assertSame('松本弓雄', $response['bracket4RacerName']);
-        $this->assertSame('まだ調整が合ってなく、ずれている', $response['bracket4RacerComment']);
+        $this->assertSame('前日コメント', $response['bracket4RacerComment1Label']);
+        $this->assertSame('まだ調整が合ってなく、ずれている', $response['bracket4RacerComment1']);
         $this->assertSame('笠雅雄', $response['bracket5RacerName']);
-        $this->assertSame('足は悪くないけど、乗り心地が課題', $response['bracket5RacerComment']);
+        $this->assertSame('前日コメント', $response['bracket5RacerComment1Label']);
+        $this->assertSame('足は悪くないけど、乗り心地が課題', $response['bracket5RacerComment1']);
         $this->assertSame('赤池修平', $response['bracket6RacerName']);
-        $this->assertSame('少し回す方向でグリップはしていた', $response['bracket6RacerComment']);
+        $this->assertSame('前日コメント', $response['bracket6RacerComment1Label']);
+        $this->assertSame('少し回す方向でグリップはしていた', $response['bracket6RacerComment1']);
     }
 
     /**
@@ -131,16 +137,22 @@ class Stadium14Test extends PHPUnitTestCase
     {
         $response = $this->stadium->comments(raceNumber: 3, date: '2024-01-01');
         $this->assertSame('葛原大陽', $response['bracket1RacerName']);
-        $this->assertSame('まだビシッとは合ってなくペラ調整を', $response['bracket1RacerComment']);
+        $this->assertSame('前日コメント', $response['bracket1RacerComment1Label']);
+        $this->assertSame('まだビシッとは合ってなくペラ調整を', $response['bracket1RacerComment1']);
         $this->assertSame('渡辺崇', $response['bracket2RacerName']);
-        $this->assertSame('ペラ調整をしてもしっくりきていない', $response['bracket2RacerComment']);
+        $this->assertSame('前日コメント', $response['bracket2RacerComment1Label']);
+        $this->assertSame('ペラ調整をしてもしっくりきていない', $response['bracket2RacerComment1']);
         $this->assertSame('西野雄貴', $response['bracket3RacerName']);
-        $this->assertSame('調整でポーンと良くなる感じもある', $response['bracket3RacerComment']);
+        $this->assertSame('前日コメント', $response['bracket3RacerComment1Label']);
+        $this->assertSame('調整でポーンと良くなる感じもある', $response['bracket3RacerComment1']);
         $this->assertSame('垂水悠', $response['bracket4RacerName']);
-        $this->assertSame('チルトを跳ねても足は良かったけど…', $response['bracket4RacerComment']);
+        $this->assertSame('前日コメント', $response['bracket4RacerComment1Label']);
+        $this->assertSame('チルトを跳ねても足は良かったけど…', $response['bracket4RacerComment1']);
         $this->assertSame('齊藤優', $response['bracket5RacerName']);
-        $this->assertSame('安定板がついても、戦える足はある', $response['bracket5RacerComment']);
+        $this->assertSame('前日コメント', $response['bracket5RacerComment1Label']);
+        $this->assertSame('安定板がついても、戦える足はある', $response['bracket5RacerComment1']);
         $this->assertSame('田村慶', $response['bracket6RacerName']);
-        $this->assertSame('ペラ調整だけで全体的に上積みできた', $response['bracket6RacerComment']);
+        $this->assertSame('前日コメント', $response['bracket6RacerComment1Label']);
+        $this->assertSame('ペラ調整だけで全体的に上積みできた', $response['bracket6RacerComment1']);
     }
 }

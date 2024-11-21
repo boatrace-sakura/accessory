@@ -56,8 +56,9 @@ class Stadium18 extends BaseStadium implements StadiumInterface
         foreach (range(1, 6) as $bracket) {
             $response['bracket' . $bracket . 'RacerName'] =
                 $this->removeSpace($comments['.com-rname'][$bracket - 1] ?? '');
-            $response['bracket' . $bracket . 'RacerComment'] =
-                $this->removeSpace($comments['.comment'][$bracket - 1] ?? '');
+            $response['bracket' . $bracket . 'RacerComment1Label'] = '前日コメント';
+            $response['bracket' . $bracket . 'RacerComment1'] =
+                $this->formatComment($comments['.comment'][$bracket - 1] ?? '');
         }
 
         return $response;

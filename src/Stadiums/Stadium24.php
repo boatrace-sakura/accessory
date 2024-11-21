@@ -55,10 +55,25 @@ class Stadium24 extends BaseStadium implements StadiumInterface
         $comments = $this->filterByKeys($crawler, ['.tei1', '.tei2', '.tei3', '.tei4', '.tei5', '.tei6']);
 
         foreach (range(1, 6) as $bracket) {
+            $pattern = '/(.+)(\(当日気配\).+)/u';
+            $subject = $comments['.tei' . $bracket][2] ?? '';
+            preg_match($pattern, $subject, $matches);
+
+            if (count($matches) === 0) {
+                $matches[1] = $subject;
+            }
+
             $response['bracket' . $bracket . 'RacerName'] =
                 $this->removeSpace($comments['.tei' . $bracket][1] ?? '');
-            $response['bracket' . $bracket . 'RacerComment'] =
-                $this->removeSpace(preg_replace('/\[.+\]/u', '', $comments['.tei' . $bracket][2] ?? ''));
+            $response['bracket' . $bracket . 'RacerComment1Label'] = '前日コメント';
+            $response['bracket' . $bracket . 'RacerComment1'] =
+                mb_convert_kana($this->removeSpace($matches[1]), 'KVa');
+
+            if (count($matches) >= 3) {
+                $response['bracket' . $bracket . 'RacerComment2Label'] = '直前コメント';
+                $response['bracket' . $bracket . 'RacerComment2'] =
+                    $this->formatComment($matches[2]);
+            }
         }
 
         return $response;

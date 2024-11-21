@@ -59,14 +59,27 @@ class Stadium06 extends BaseStadium implements StadiumInterface
         ]);
 
         foreach (range(1, 6) as $bracket) {
-            $pattern = '/前日のコメント(.+)試運転記者の目/u';
+            $pattern = '/(前日のコメント)(.+)(試運転コメント|１走目コメント|試運転記者の目|１走目記者の目)(.+)/u';
             $subject = $comments['.comment_table > tr > td'][$bracket - 1] ?? '';
             preg_match($pattern, $subject, $matches);
 
+            if (count($matches) === 0) {
+                $pattern = '/(前日のコメント)(.+)/u';
+                preg_match($pattern, $subject, $matches);
+            }
+
             $response['bracket' . $bracket . 'RacerName'] =
                 $this->removeSpace($comments['.comment_table > tr > th'][$bracket - 1] ?? '');
-            $response['bracket' . $bracket . 'RacerComment'] =
-                $this->removeSpace($matches[1] ?? '');
+            $response['bracket' . $bracket . 'RacerComment1Label'] = '前日コメント';
+            $response['bracket' . $bracket . 'RacerComment1'] =
+                $this->formatComment($matches[2] ?? '');
+
+            if (count($matches) >= 5) {
+                $response['bracket' . $bracket . 'RacerComment2Label'] =
+                    $this->removeSpace($matches[3] ?? '');
+                $response['bracket' . $bracket . 'RacerComment2'] =
+                    $this->formatComment($matches[4] ?? '');
+            }
         }
 
         return $response;

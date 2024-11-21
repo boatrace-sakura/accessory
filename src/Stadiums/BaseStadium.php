@@ -57,4 +57,13 @@ abstract class BaseStadium
     {
         return preg_replace('/[\x00\s]++/u', '', $value);
     }
+
+    /**
+     * @param  string  $value
+     * @return string
+     */
+    protected function formatComment(string $value): string
+    {
+        return mb_convert_kana($this->removeSpace($value), 'KVa');
+    }
 }

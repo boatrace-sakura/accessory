@@ -111,17 +111,23 @@ class Stadium22Test extends PHPUnitTestCase
     {
         $response = $this->stadium->comments(raceNumber: 1, date: '2024-01-03');
         $this->assertSame('益田啓司', $response['bracket1RacerName']);
-        $this->assertSame('回り過ぎの分、乗りづらさを感じた。', $response['bracket1RacerComment']);
+        $this->assertSame('前日コメント', $response['bracket1RacerComment1Label']);
+        $this->assertSame('回り過ぎの分、乗りづらさを感じた。', $response['bracket1RacerComment1']);
         $this->assertSame('篠原飛翔', $response['bracket2RacerName']);
-        $this->assertSame('まだ合っていないけど、そこまで悪くない。', $response['bracket2RacerComment']);
+        $this->assertSame('前日コメント', $response['bracket2RacerComment1Label']);
+        $this->assertSame('まだ合っていないけど、そこまで悪くない。', $response['bracket2RacerComment1']);
         $this->assertSame('藤森陸斗', $response['bracket3RacerName']);
-        $this->assertSame('伸びは明らかにいいが、乗りづらさがある。', $response['bracket3RacerComment']);
+        $this->assertSame('前日コメント', $response['bracket3RacerComment1Label']);
+        $this->assertSame('伸びは明らかにいいが、乗りづらさがある。', $response['bracket3RacerComment1']);
         $this->assertSame('森晋太郎', $response['bracket4RacerName']);
-        $this->assertSame('（篠崎）仁志さんには少し出られる感じ。', $response['bracket4RacerComment']);
+        $this->assertSame('前日コメント', $response['bracket4RacerComment1Label']);
+        $this->assertSame('(篠崎)仁志さんには少し出られる感じ。', $response['bracket4RacerComment1']);
         $this->assertSame('梶原正', $response['bracket5RacerName']);
-        $this->assertSame('何となくだけど伸び寄りの感じだった。', $response['bracket5RacerComment']);
+        $this->assertSame('前日コメント', $response['bracket5RacerComment1Label']);
+        $this->assertSame('何となくだけど伸び寄りの感じだった。', $response['bracket5RacerComment1']);
         $this->assertSame('桂林寛', $response['bracket6RacerName']);
-        $this->assertSame('ペラは叩いた。行き足に力強さがある。', $response['bracket6RacerComment']);
+        $this->assertSame('前日コメント', $response['bracket6RacerComment1Label']);
+        $this->assertSame('ペラは叩いた。行き足に力強さがある。', $response['bracket6RacerComment1']);
     }
 
     /**
@@ -131,16 +137,22 @@ class Stadium22Test extends PHPUnitTestCase
     {
         $response = $this->stadium->comments(raceNumber: 7, date: '2024-01-03');
         $this->assertSame('梶原正', $response['bracket1RacerName']);
-        $this->assertSame('何となくだけど伸び寄りの感じだった。', $response['bracket1RacerComment']);
+        $this->assertSame('前日コメント', $response['bracket1RacerComment1Label']);
+        $this->assertSame('何となくだけど伸び寄りの感じだった。', $response['bracket1RacerComment1']);
         $this->assertSame('安東幸治', $response['bracket2RacerName']);
-        $this->assertSame('手前の感じがもうひとつだった。', $response['bracket2RacerComment']);
+        $this->assertSame('前日コメント', $response['bracket2RacerComment1Label']);
+        $this->assertSame('手前の感じがもうひとつだった。', $response['bracket2RacerComment1']);
         $this->assertSame('松本真広', $response['bracket3RacerName']);
-        $this->assertSame('直線で出て行く感じがあった。', $response['bracket3RacerComment']);
+        $this->assertSame('前日コメント', $response['bracket3RacerComment1Label']);
+        $this->assertSame('直線で出て行く感じがあった。', $response['bracket3RacerComment1']);
         $this->assertSame('原田才一郎', $response['bracket4RacerName']);
-        $this->assertSame('スリット付近は周りと変わらなかった。', $response['bracket4RacerComment']);
+        $this->assertSame('前日コメント', $response['bracket4RacerComment1Label']);
+        $this->assertSame('スリット付近は周りと変わらなかった。', $response['bracket4RacerComment1']);
         $this->assertSame('奈須啓太', $response['bracket5RacerName']);
-        $this->assertSame('いい感じがしない。ターンで横に滑る。', $response['bracket5RacerComment']);
+        $this->assertSame('前日コメント', $response['bracket5RacerComment1Label']);
+        $this->assertSame('いい感じがしない。ターンで横に滑る。', $response['bracket5RacerComment1']);
         $this->assertSame('石川真二', $response['bracket6RacerName']);
-        $this->assertSame('新ペラに換わったので何とも言えない。', $response['bracket6RacerComment']);
+        $this->assertSame('前日コメント', $response['bracket6RacerComment1Label']);
+        $this->assertSame('新ペラに換わったので何とも言えない。', $response['bracket6RacerComment1']);
     }
 }

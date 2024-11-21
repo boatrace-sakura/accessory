@@ -52,13 +52,26 @@ class Stadium23 extends BaseStadium implements StadiumInterface
         $crawlerFormat = '%s/modules/yosou/group-cyokuzen.php?day=%s&race=%d&kind=3&if=1';
         $crawlerUrl = sprintf($crawlerFormat, $baseUrl, $date, $raceNumber);
         $crawler = $this->httpBrowser->request('GET', $crawlerUrl);
-        $comments = $this->filterByKeys($crawler, ['.com-rname', '.col3']);
+        $baseXpath = 'descendant-or-self::body/div/div/div[2]/table/tbody';
+        $racerNameFormat = '%s/tr[%d]/td[2]/ul/li[2]/a';
+        $commentFormat = '%s/tr[%d]/td[3]/p[%d]';
 
         foreach (range(1, 6) as $bracket) {
+            $xpath = sprintf($racerNameFormat, $baseXpath, $bracket);
             $response['bracket' . $bracket . 'RacerName'] =
-                $this->removeSpace($comments['.com-rname'][$bracket - 1] ?? '');
-            $response['bracket' . $bracket . 'RacerComment'] =
-                $this->removeSpace(preg_replace('/（.+現在）/u', '', $comments['.col3'][$bracket] ?? ''));
+                $this->removeSpace($crawler->filterXPath($xpath)->text());
+
+            foreach (range(1, 2) as $key) {
+                $xpath = sprintf($commentFormat, $baseXpath, $bracket, $key);
+                if ($crawler->filterXPath($xpath)->count()) {
+                    $response['bracket' . $bracket . 'RacerComment' . $key . 'Label'] = match ($key) {
+                        1 => '前日コメント',
+                        2 => '直前コメント',
+                    };
+                    $response['bracket' . $bracket . 'RacerComment' . $key] =
+                        $this->formatComment($crawler->filterXPath($xpath)->text());
+                }
+            }
         }
 
         return $response;

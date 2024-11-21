@@ -92,11 +92,18 @@ class Stadium07 extends BaseStadium implements StadiumInterface
             $racerNumber = (int) ($times['.number'][$bracket - 1] ?? 0);
             $response['bracket' . $bracket . 'RacerName'] =
                 $this->removeSpace($times['.name'][$bracket] ?? '');
-            $response['bracket' . $bracket . 'RacerComment'] =
-                $this->removeSpace(
-                    ($todayComments[$racerNumber] ?? '') .
-                    ($todayNewComments[$racerNumber] ?? '')
-                );
+
+            if (isset($todayComments[$racerNumber])) {
+                $response['bracket' . $bracket . 'RacerComment1Label'] = '前日コメント';
+                $response['bracket' . $bracket . 'RacerComment1'] =
+                    $this->formatComment($todayComments[$racerNumber]);
+            }
+
+            if (isset($todayNewComments[$racerNumber])) {
+                $response['bracket' . $bracket . 'RacerComment2Label'] = '直前コメント';
+                $response['bracket' . $bracket . 'RacerComment2'] =
+                    $this->formatComment($todayNewComments[$racerNumber]);
+            }
         }
 
         return $response;

@@ -72,10 +72,17 @@ class Stadium17 extends BaseStadium implements StadiumInterface
                     sprintf('%s/tr[%d]/td[2]/p[1]/a', $baseXpath, $bracket + 1)
                 )->text());
 
-            $response['bracket' . $bracket . 'RacerComment'] =
-                $this->removeSpace($crawler->filterXPath(
-                    sprintf('%s/tr[%d]/td[4]/p/text()', $baseXpath, $bracket + 1)
-                )->text());
+            $comment1 = $this->formatComment($crawler->filterXPath(
+                sprintf('%s/tr[%d]/td[4]/p', $baseXpath, $bracket + 1)
+            )->text());
+
+            $comment2 = $this->formatComment($crawler->filterXPath(
+                sprintf('%s/tr[%d]/td[4]/p/text()', $baseXpath, $bracket + 1)
+            )->text());
+
+            $response['bracket' . $bracket . 'RacerComment1Label'] =
+                $comment1 === $comment2 ? '前日コメント' : '直前コメント';
+            $response['bracket' . $bracket . 'RacerComment1'] = $comment2;
         }
 
         return $response;

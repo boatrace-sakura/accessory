@@ -99,17 +99,23 @@ class Stadium13Test extends PHPUnitTestCase
     {
         $response = $this->stadium->comments(raceNumber: 1, date: '2024-04-23');
         $this->assertSame('高山弘斗', $response['bracket1RacerName']);
-        $this->assertSame('回転が合ってなくて重かったです', $response['bracket1RacerComment']);
+        $this->assertSame('前日コメント', $response['bracket1RacerComment1Label']);
+        $this->assertSame('回転が合ってなくて重かったです', $response['bracket1RacerComment1']);
         $this->assertSame('鋤柄貴俊', $response['bracket2RacerName']);
-        $this->assertSame('走り出せば普通はあるかな', $response['bracket2RacerComment']);
+        $this->assertSame('前日コメント', $response['bracket2RacerComment1Label']);
+        $this->assertSame('走り出せば普通はあるかな', $response['bracket2RacerComment1']);
         $this->assertSame('一瀬明', $response['bracket3RacerName']);
-        $this->assertSame('出足はダメだけど直線は普通', $response['bracket3RacerComment']);
+        $this->assertSame('前日コメント', $response['bracket3RacerComment1Label']);
+        $this->assertSame('出足はダメだけど直線は普通', $response['bracket3RacerComment1']);
         $this->assertSame('勝野竜司', $response['bracket4RacerName']);
-        $this->assertSame('足は悪くない感じの普通です', $response['bracket4RacerComment']);
+        $this->assertSame('前日コメント', $response['bracket4RacerComment1Label']);
+        $this->assertSame('足は悪くない感じの普通です', $response['bracket4RacerComment1']);
         $this->assertSame('松浦博人', $response['bracket5RacerName']);
-        $this->assertSame('起こしや乗り味は悪くないです', $response['bracket5RacerComment']);
+        $this->assertSame('前日コメント', $response['bracket5RacerComment1Label']);
+        $this->assertSame('起こしや乗り味は悪くないです', $response['bracket5RacerComment1']);
         $this->assertSame('高倉孝太', $response['bracket6RacerName']);
-        $this->assertSame('スタンダードな感じでしたね', $response['bracket6RacerComment']);
+        $this->assertSame('前日コメント', $response['bracket6RacerComment1Label']);
+        $this->assertSame('スタンダードな感じでしたね', $response['bracket6RacerComment1']);
     }
 
     /**
@@ -119,16 +125,22 @@ class Stadium13Test extends PHPUnitTestCase
     {
         $response = $this->stadium->comments(raceNumber: 10, date: '2024-04-23');
         $this->assertSame('津久井拓也', $response['bracket1RacerName']);
-        $this->assertSame('ペラを叩いたけど起こしが△', $response['bracket1RacerComment']);
+        $this->assertSame('前日コメント', $response['bracket1RacerComment1Label']);
+        $this->assertSame('ペラを叩いたけど起こしが△', $response['bracket1RacerComment1']);
         $this->assertSame('山地正樹', $response['bracket2RacerName']);
-        $this->assertSame('（前検は目立つ舟足はなかった）', $response['bracket2RacerComment']);
+        $this->assertSame('前日コメント', $response['bracket2RacerComment1Label']);
+        $this->assertSame('(前検は目立つ舟足はなかった)', $response['bracket2RacerComment1']);
         $this->assertSame('高倉孝太', $response['bracket3RacerName']);
-        $this->assertSame('スタンダードな感じでしたね', $response['bracket3RacerComment']);
+        $this->assertSame('前日コメント', $response['bracket3RacerComment1Label']);
+        $this->assertSame('スタンダードな感じでしたね', $response['bracket3RacerComment1']);
         $this->assertSame('松山裕基', $response['bracket4RacerName']);
-        $this->assertSame('体感が悪い感じがしました', $response['bracket4RacerComment']);
+        $this->assertSame('前日コメント', $response['bracket4RacerComment1Label']);
+        $this->assertSame('体感が悪い感じがしました', $response['bracket4RacerComment1']);
         $this->assertSame('登玉隼百', $response['bracket5RacerName']);
-        $this->assertSame('班の中でも少し余裕がありました', $response['bracket5RacerComment']);
+        $this->assertSame('前日コメント', $response['bracket5RacerComment1Label']);
+        $this->assertSame('班の中でも少し余裕がありました', $response['bracket5RacerComment1']);
         $this->assertSame('野長瀬正孝', $response['bracket6RacerName']);
-        $this->assertSame('ペラを叩いて行って感じは○', $response['bracket6RacerComment']);
+        $this->assertSame('前日コメント', $response['bracket6RacerComment1Label']);
+        $this->assertSame('ペラを叩いて行って感じは○', $response['bracket6RacerComment1']);
     }
 }
