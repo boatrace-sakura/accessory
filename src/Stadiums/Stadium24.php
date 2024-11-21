@@ -86,7 +86,7 @@ class Stadium24 extends BaseStadium implements StadiumInterface
                 $this->removeSpace($comments['.tei' . $bracket][1] ?? '');
             $response['bracket' . $bracket . 'RacerComment1Label'] = '前日コメント';
             $response['bracket' . $bracket . 'RacerComment1'] =
-                mb_convert_kana($this->removeSpace($matches[1]), 'KVa');
+                $this->formatComment($matches[1]);
 
             if (count($matches) >= 3) {
                 $response['bracket' . $bracket . 'RacerComment2Label'] = '直前コメント';
