@@ -25,14 +25,26 @@ class Stadium24 extends BaseStadium implements StadiumInterface
         $crawlerFormat = '%s/yosou/include/new_top_iframe_chokuzen_2.php?day=%s&race=1&race=%02d';
         $crawlerUrl = sprintf($crawlerFormat, $baseUrl, $date, $raceNumber);
         $crawler = $this->httpBrowser->request('GET', $crawlerUrl);
-        $times = $this->filterByKeys($crawler, ['.tei1', '.tei2', '.tei3', '.tei4', '.tei5', '.tei6']);
+        $times = $this->filterByKeys($crawler, [
+            '.tei1',
+            '.tei2',
+            '.tei3',
+            '.tei4',
+            '.tei5',
+            '.tei6',
+        ]);
 
         foreach (range(1, 6) as $bracket) {
-            $response['bracket' . $bracket . 'RacerName'] = $this->removeSpace($times['.tei' . $bracket][1] ?? '');
-            $response['bracket' . $bracket . 'ExhibitionTime'] = (float) ($times['.tei' . $bracket][3] ?? 0);
-            $response['bracket' . $bracket . 'LapTime'] = (float) ($times['.tei' . $bracket][4] ?? 0);
-            $response['bracket' . $bracket . 'TurnTime'] = (float) ($times['.tei' . $bracket][5] ?? 0);
-            $response['bracket' . $bracket . 'StraightTime'] = (float) ($times['.tei' . $bracket][6] ?? 0);
+            $response['bracket' . $bracket . 'RacerName'] =
+                $this->removeSpace($times['.tei' . $bracket][1] ?? '');
+            $response['bracket' . $bracket . 'ExhibitionTime'] =
+                (float) ($times['.tei' . $bracket][3] ?? 0);
+            $response['bracket' . $bracket . 'LapTime'] =
+                (float) ($times['.tei' . $bracket][4] ?? 0);
+            $response['bracket' . $bracket . 'TurnTime'] =
+                (float) ($times['.tei' . $bracket][5] ?? 0);
+            $response['bracket' . $bracket . 'StraightTime'] =
+                (float) ($times['.tei' . $bracket][6] ?? 0);
         }
 
         return $response;
@@ -52,7 +64,14 @@ class Stadium24 extends BaseStadium implements StadiumInterface
         $crawlerFormat = '%s/yosou/include/new_top_iframe_comment_2.php?day=%s&race=1&race=%02d';
         $crawlerUrl = sprintf($crawlerFormat, $baseUrl, $date, $raceNumber);
         $crawler = $this->httpBrowser->request('GET', $crawlerUrl);
-        $comments = $this->filterByKeys($crawler, ['.tei1', '.tei2', '.tei3', '.tei4', '.tei5', '.tei6']);
+        $comments = $this->filterByKeys($crawler, [
+            '.tei1',
+            '.tei2',
+            '.tei3',
+            '.tei4',
+            '.tei5',
+            '.tei6',
+        ]);
 
         foreach (range(1, 6) as $bracket) {
             $pattern = '/(.+)(\(当日気配\).+)/u';
