@@ -86,12 +86,12 @@ class Stadium07 extends BaseStadium implements StadiumInterface
         $crawlerFormat = '%s/asp/gamagori/kyogi/kyogihtml/comment/comment%s07%02d.htm';
         $crawlerUrl = sprintf($crawlerFormat, $baseUrl, $date, $raceNumber);
         $crawler = $this->httpBrowser->request('GET', $crawlerUrl);
-        $times = $this->filterByKeys($crawler, ['.name', '.number']);
+        $racers = $this->filterByKeys($crawler, ['.name', '.number']);
 
         foreach (range(1, 6) as $bracket) {
-            $racerNumber = (int) ($times['.number'][$bracket - 1] ?? 0);
+            $racerNumber = (int) ($racers['.number'][$bracket - 1] ?? 0);
             $response['bracket' . $bracket . 'RacerName'] =
-                $this->removeSpace($times['.name'][$bracket] ?? '');
+                $this->removeSpace($racers['.name'][$bracket] ?? '');
 
             if (isset($todayComments[$racerNumber])) {
                 $response['bracket' . $bracket . 'RacerComment1Label'] = '前日コメント';

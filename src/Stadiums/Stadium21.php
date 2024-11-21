@@ -52,14 +52,14 @@ class Stadium21 extends BaseStadium implements StadiumInterface
         $crawlerFormat = '%s/modules/yosou/group-syussou.php?day=%s&race=%d&kind=0&if=1';
         $crawlerUrl = sprintf($crawlerFormat, $baseUrl, $date, $raceNumber);
         $crawler = $this->httpBrowser->request('GET', $crawlerUrl);
-        $times = $this->filterByKeys($crawler, ['.com-rname', '.col10']);
+        $comments = $this->filterByKeys($crawler, ['.com-rname', '.col10']);
 
         foreach (range(1, 6) as $bracket) {
             $response['bracket' . $bracket . 'RacerName'] =
-                $this->removeSpace($times['.com-rname'][$bracket - 1] ?? '');
+                $this->removeSpace($comments['.com-rname'][$bracket - 1] ?? '');
             $response['bracket' . $bracket . 'RacerComment1Label'] = '前日コメント';
             $response['bracket' . $bracket . 'RacerComment1'] =
-                $this->formatComment($times['.col10'][$bracket] ?? '');
+                $this->formatComment($comments['.col10'][$bracket] ?? '');
         }
 
         return $response;
