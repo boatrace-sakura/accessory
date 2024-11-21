@@ -21,6 +21,9 @@ use Boatrace\Sakura\Accessory;
 
 var_dump(Accessory::times(stadiumId: 24, raceNumber: 1));
 var_dump(Accessory::times(stadiumId: 24, raceNumber: 1, date: '2024-01-01'));
+
+var_dump(Accessory::comments(stadiumId: 24, raceNumber: 1));
+var_dump(Accessory::comments(stadiumId: 24, raceNumber: 1, date: '2024-01-01'));
 ```
 
 ## License
