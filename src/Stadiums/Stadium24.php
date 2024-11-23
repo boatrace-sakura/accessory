@@ -89,7 +89,7 @@ class Stadium24 extends BaseStadium implements StadiumInterface
                 $this->formatComment($matches[1]);
 
             if (count($matches) >= 3) {
-                $response['bracket' . $bracket . 'RacerComment2Label'] = '直前コメント';
+                $response['bracket' . $bracket . 'RacerComment2Label'] = '当日コメント';
                 $response['bracket' . $bracket . 'RacerComment2'] =
                     $this->formatComment($matches[2]);
             }

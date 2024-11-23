@@ -89,7 +89,7 @@ class Stadium15 extends BaseStadium implements StadiumInterface
                     sprintf($racerComment1Format, $baseXpath, $bracket)
                 )->text()));
 
-            $response['bracket' . $bracket . 'RacerComment2Label'] = '直前コメント';
+            $response['bracket' . $bracket . 'RacerComment2Label'] = '当日コメント';
             $response['bracket' . $bracket . 'RacerComment2'] =
                 preg_replace('/\A当日/u', '', $this->formatComment($crawler->filterXPath(
                     sprintf($racerComment2Format, $baseXpath, $bracket)

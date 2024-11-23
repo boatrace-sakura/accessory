@@ -81,7 +81,7 @@ class Stadium17 extends BaseStadium implements StadiumInterface
             )->text());
 
             $response['bracket' . $bracket . 'RacerComment1Label'] =
-                $comment1 === $comment2 ? '前日コメント' : '直前コメント';
+                $comment1 === $comment2 ? '前日コメント' : '当日コメント';
             $response['bracket' . $bracket . 'RacerComment1'] = $comment2;
         }
 

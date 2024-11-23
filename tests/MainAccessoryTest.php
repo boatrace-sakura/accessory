@@ -719,7 +719,7 @@ class MainAccessoryTest extends PHPUnitTestCase
         $this->assertSame('沼田大都', $response['bracket5RacerName']);
         $this->assertSame('前日コメント', $response['bracket5RacerComment1Label']);
         $this->assertSame('特訓や展示の行き足は良かったけど少し回したらスタートが…。', $response['bracket5RacerComment1']);
-        $this->assertSame('直前コメント', $response['bracket5RacerComment2Label']);
+        $this->assertSame('当日コメント', $response['bracket5RacerComment2Label']);
         $this->assertSame('回っていて乗りやすくなった。もう少し直線を求めたい。', $response['bracket5RacerComment2']);
         $this->assertSame('仲道大輔', $response['bracket6RacerName']);
         $this->assertSame('前日コメント', $response['bracket6RacerComment1Label']);
@@ -1013,12 +1013,12 @@ class MainAccessoryTest extends PHPUnitTestCase
         $this->assertSame('川上昇平', $response['bracket1RacerName']);
         $this->assertSame('前日コメント', $response['bracket1RacerComment1Label']);
         $this->assertSame('体感では行き足と乗り心地が悪い感じがした。ペラと本体整備も考える', $response['bracket1RacerComment1']);
-        $this->assertSame('直前コメント', $response['bracket1RacerComment2Label']);
+        $this->assertSame('当日コメント', $response['bracket1RacerComment2Label']);
         $this->assertSame('(当日気配)レース後「行き足から伸びは少し気になるけど、前検よりは上向いている。回転の上がりはもう少しな感じ。出足は少し重いかも。競ってみてどうかですね。乗りにくさはなさそうですよ。」[19:32]', $response['bracket1RacerComment2']);
         $this->assertSame('山口真喜子', $response['bracket2RacerName']);
         $this->assertSame('前日コメント', $response['bracket2RacerComment1Label']);
         $this->assertSame('回転が上がっていなかったし、振り込みそうにもなった。ペラを叩いた特訓の体感もよくない。', $response['bracket2RacerComment1']);
-        $this->assertSame('直前コメント', $response['bracket2RacerComment2Label']);
+        $this->assertSame('当日コメント', $response['bracket2RacerComment2Label']);
         $this->assertSame('(当日気配)レース後「試運転では出足がなくて置いて行かれていたし、本番でもペラが合っていなくてターンをしてから舟が進んでいなかったですね。伸びは下がることはない。出足を求めて調整する。」[19:57]', $response['bracket2RacerComment2']);
         $this->assertSame('中島浩哉', $response['bracket3RacerName']);
         $this->assertSame('前日コメント', $response['bracket3RacerComment1Label']);
@@ -1032,7 +1032,7 @@ class MainAccessoryTest extends PHPUnitTestCase
         $this->assertSame('津留浩一郎', $response['bracket6RacerName']);
         $this->assertSame('前日コメント', $response['bracket6RacerComment1Label']);
         $this->assertSame('まだ調整途中だけど、手応えとしては悪くないですよ。ちょっと伸び型。', $response['bracket6RacerComment1']);
-        $this->assertSame('直前コメント', $response['bracket6RacerComment2Label']);
+        $this->assertSame('当日コメント', $response['bracket6RacerComment2Label']);
         $this->assertSame('(当日気配)レース後「前半はぼちぼちいい感触だった。やや伸び型で、出足は少し重さがありましたね。後半へは微調整くらい。」[19:08]', $response['bracket6RacerComment2']);
     }
 }

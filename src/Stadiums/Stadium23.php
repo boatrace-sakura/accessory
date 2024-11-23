@@ -66,7 +66,7 @@ class Stadium23 extends BaseStadium implements StadiumInterface
                 if ($crawler->filterXPath($xpath)->count()) {
                     $response['bracket' . $bracket . 'RacerComment' . $key . 'Label'] = match ($key) {
                         1 => '前日コメント',
-                        2 => '直前コメント',
+                        2 => '当日コメント',
                     };
                     $response['bracket' . $bracket . 'RacerComment' . $key] =
                         $this->formatComment($crawler->filterXPath($xpath)->text());

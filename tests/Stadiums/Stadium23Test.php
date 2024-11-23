@@ -168,7 +168,7 @@ class Stadium23Test extends PHPUnitTestCase
         $this->assertSame('山崎鉄平', $response['bracket2RacerName']);
         $this->assertSame('前日コメント', $response['bracket2RacerComment1Label']);
         $this->assertSame('前検の感じが良くなかったかなと思います。もう一工夫欲しいかなって感じ。', $response['bracket2RacerComment1']);
-        $this->assertSame('直前コメント', $response['bracket2RacerComment2Label']);
+        $this->assertSame('当日コメント', $response['bracket2RacerComment2Label']);
         $this->assertSame('回っていた。ゾーンに入ってたけど展示タイムが出なかった。道中は良いけど違和感がある。(10:08現在)', $response['bracket2RacerComment2']);
         $this->assertSame('眞鳥章太', $response['bracket3RacerName']);
         $this->assertSame('前日コメント', $response['bracket3RacerComment1Label']);
@@ -176,7 +176,7 @@ class Stadium23Test extends PHPUnitTestCase
         $this->assertSame('北川太一', $response['bracket4RacerName']);
         $this->assertSame('前日コメント', $response['bracket4RacerComment1Label']);
         $this->assertSame('悪くなさそう。上がりが良くて、あとは乗り心地を改善すればいいと思う。', $response['bracket4RacerComment1']);
-        $this->assertSame('直前コメント', $response['bracket4RacerComment2Label']);
+        $this->assertSame('当日コメント', $response['bracket4RacerComment2Label']);
         $this->assertSame('モーターの評価が良くないので整備をした。前検は普通だったから普通ちょいになればいいな。(10:08現在)', $response['bracket4RacerComment2']);
         $this->assertSame('安河内健', $response['bracket5RacerName']);
         $this->assertSame('前日コメント', $response['bracket5RacerComment1Label']);
@@ -184,7 +184,7 @@ class Stadium23Test extends PHPUnitTestCase
         $this->assertSame('深山祐二', $response['bracket6RacerName']);
         $this->assertSame('前日コメント', $response['bracket6RacerComment1Label']);
         $this->assertSame('良くないですね。特に直線とか握り込みが良くないですね。', $response['bracket6RacerComment1']);
-        $this->assertSame('直前コメント', $response['bracket6RacerComment2Label']);
+        $this->assertSame('当日コメント', $response['bracket6RacerComment2Label']);
         $this->assertSame('ちょっと合っていなかった。伸びが弱い。特訓から下がっていて、赤坂選手に先行されていた。(10:39現在)', $response['bracket6RacerComment2']);
     }
 }

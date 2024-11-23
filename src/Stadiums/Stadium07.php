@@ -100,7 +100,7 @@ class Stadium07 extends BaseStadium implements StadiumInterface
             }
 
             if (isset($todayNewComments[$racerNumber])) {
-                $response['bracket' . $bracket . 'RacerComment2Label'] = '直前コメント';
+                $response['bracket' . $bracket . 'RacerComment2Label'] = '当日コメント';
                 $response['bracket' . $bracket . 'RacerComment2'] =
                     $this->formatComment($todayNewComments[$racerNumber]);
             }

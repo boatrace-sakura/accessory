@@ -125,7 +125,7 @@ class Stadium07Test extends PHPUnitTestCase
         $this->assertSame('沼田大都', $response['bracket5RacerName']);
         $this->assertSame('前日コメント', $response['bracket5RacerComment1Label']);
         $this->assertSame('特訓や展示の行き足は良かったけど少し回したらスタートが…。', $response['bracket5RacerComment1']);
-        $this->assertSame('直前コメント', $response['bracket5RacerComment2Label']);
+        $this->assertSame('当日コメント', $response['bracket5RacerComment2Label']);
         $this->assertSame('回っていて乗りやすくなった。もう少し直線を求めたい。', $response['bracket5RacerComment2']);
         $this->assertSame('仲道大輔', $response['bracket6RacerName']);
         $this->assertSame('前日コメント', $response['bracket6RacerComment1Label']);
@@ -150,7 +150,7 @@ class Stadium07Test extends PHPUnitTestCase
         $this->assertSame('小西英輝', $response['bracket4RacerName']);
         $this->assertSame('前日コメント', $response['bracket4RacerComment1Label']);
         $this->assertSame('ペラを叩いたら、後半はターン回りがマシになっていた。', $response['bracket4RacerComment1']);
-        $this->assertSame('直前コメント', $response['bracket4RacerComment2Label']);
+        $this->assertSame('当日コメント', $response['bracket4RacerComment2Label']);
         $this->assertSame('ペラ叩き変え体感は今日の方が○。足は行ってみてどうか。', $response['bracket4RacerComment2']);
         $this->assertSame('前田聖文', $response['bracket5RacerName']);
         $this->assertSame('前日コメント', $response['bracket5RacerComment1Label']);
