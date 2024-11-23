@@ -74,7 +74,8 @@ class Stadium15 extends BaseStadium implements StadiumInterface
         $crawler = $this->httpBrowser->request('GET', $crawlerUrl);
         $baseXpath = 'descendant-or-self::body/div[2]/div/div';
         $racerNameFormat = '%s/div[3]/table/tbody[%d]/tr[1]/td[2]/div/div/div[2]/div[2]/a';
-        $racerCommentFormat = '%s/div[4]/table/tbody[%d]/tr/td[3]/p[2]/text()';
+        $racerComment1Format = '%s/div[4]/table/tbody[%d]/tr/td[3]/p[2]';
+        $racerComment2Format = '%s/div[4]/table/tbody[%d]/tr/td[3]/p[1]';
 
         foreach (range(1, 6) as $bracket) {
             $response['bracket' . $bracket . 'RacerName'] =
@@ -84,9 +85,15 @@ class Stadium15 extends BaseStadium implements StadiumInterface
 
             $response['bracket' . $bracket . 'RacerComment1Label'] = '前日コメント';
             $response['bracket' . $bracket . 'RacerComment1'] =
-                $this->formatComment($crawler->filterXPath(
-                    sprintf($racerCommentFormat, $baseXpath, $bracket)
-                )->text());
+                preg_replace('/\A前日/u', '', $this->formatComment($crawler->filterXPath(
+                    sprintf($racerComment1Format, $baseXpath, $bracket)
+                )->text()));
+
+            $response['bracket' . $bracket . 'RacerComment2Label'] = '直前コメント';
+            $response['bracket' . $bracket . 'RacerComment2'] =
+                preg_replace('/\A当日/u', '', $this->formatComment($crawler->filterXPath(
+                    sprintf($racerComment2Format, $baseXpath, $bracket)
+                )->text()));
         }
 
         return $response;
