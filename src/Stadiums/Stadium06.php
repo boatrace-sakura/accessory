@@ -76,7 +76,7 @@ class Stadium06 extends BaseStadium implements StadiumInterface
 
             if (count($matches) >= 5) {
                 $response['bracket' . $bracket . 'RacerComment2Label'] =
-                    $this->removeSpace($matches[3] ?? '');
+                    $this->formatComment($matches[3] ?? '');
                 $response['bracket' . $bracket . 'RacerComment2'] =
                     $this->formatComment($matches[4] ?? '');
             }
