@@ -147,7 +147,7 @@ class Stadium17Test extends PHPUnitTestCase
         $this->assertSame('回転が合っていないので、プロペラを調整してみます。', $response['bracket3RacerComment1']);
         $this->assertSame('正木聖賢', $response['bracket4RacerName']);
         $this->assertSame('当日コメント', $response['bracket4RacerComment2Label']);
-        $this->assertSame('プロペラを調整して、足は上向いてきています。', $response['bracket4RacerComment2']);
+        $this->assertSame('プロペラを調整して、足は上向いてきています。12:49更新', $response['bracket4RacerComment2']);
         $this->assertSame('木山和幸', $response['bracket5RacerName']);
         $this->assertSame('前日コメント', $response['bracket5RacerComment1Label']);
         $this->assertSame('プロペラもそのままで、足は中堅レベルはあるよ。', $response['bracket5RacerComment1']);
