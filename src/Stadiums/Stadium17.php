@@ -80,9 +80,13 @@ class Stadium17 extends BaseStadium implements StadiumInterface
                 sprintf('%s/tr[%d]/td[4]/p/text()', $baseXpath, $bracket + 1)
             )->text());
 
-            $response['bracket' . $bracket . 'RacerComment1Label'] =
-                $comment1 === $comment2 ? '前日コメント' : '当日コメント';
-            $response['bracket' . $bracket . 'RacerComment1'] = $comment2;
+            if ($comment1 === $comment2) {
+                $response['bracket' . $bracket . 'RacerComment1Label'] = '前日コメント';
+                $response['bracket' . $bracket . 'RacerComment1'] = $comment2;
+            } else {
+                $response['bracket' . $bracket . 'RacerComment2Label'] = '当日コメント';
+                $response['bracket' . $bracket . 'RacerComment2'] = $comment2;
+            }
         }
 
         return $response;
