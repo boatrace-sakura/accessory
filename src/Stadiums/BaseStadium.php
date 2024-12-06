@@ -24,13 +24,9 @@ abstract class BaseStadium
      */
     protected function filterByKey(Crawler $crawler, string $key): array
     {
-        $response = [];
-
-        $crawler->filter($key)->each(function ($node) use (&$response) {
-            $response[] = $node->text();
+        return $crawler->filter($key)->each(function ($node) {
+            return $node->text();
         });
-
-        return $response;
     }
 
     /**
