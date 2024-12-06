@@ -35,8 +35,7 @@ class Accessory
      */
     public function __call(string $name, array $arguments): array
     {
-        $callback = [$this->accessory, $name];
-        return call_user_func_array($callback, $arguments);
+        return $this->accessory->$name(...$arguments);
     }
 
     /**
@@ -46,8 +45,7 @@ class Accessory
      */
     public static function __callStatic(string $name, array $arguments): array
     {
-        $callback = [self::getInstance('Accessory'), $name];
-        return call_user_func_array($callback, $arguments);
+        return self::getInstance('Accessory')->$name(...$arguments);
     }
 
     /**
