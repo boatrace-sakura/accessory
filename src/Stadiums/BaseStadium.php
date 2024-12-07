@@ -55,6 +55,15 @@ abstract class BaseStadium
     }
 
     /**
+     * @param  string $value
+     * @return string
+     */
+    protected function removeNonJapanese(string $value): string
+    {
+        return preg_replace('/[^\p{Hiragana}\p{Katakana}\p{Han}ー。、]/u', '', $value);
+    }
+
+    /**
      * @param  string  $value
      * @return string
      */
