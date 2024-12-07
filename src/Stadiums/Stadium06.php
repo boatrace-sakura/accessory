@@ -48,37 +48,22 @@ class Stadium06 extends BaseStadium implements StadiumInterface
         $response = [];
 
         $date = Carbon::parse($date ?? 'today')->format('Ymd');
-        $baseUrl = 'https://nikkansports.raceyosou.jp';
-        $crawlerFormat = '%s/boatrace/hamanako/%s/%d';
+        $baseUrl = 'https://www.boatrace-hamanako.jp';
+        $crawlerFormat = '%s/modules/yosou/group-yosou.php?day=%s&race=%d&kind=1&if=1';
         $crawlerUrl = sprintf($crawlerFormat, $baseUrl, $date, $raceNumber);
         $crawler = $this->httpBrowser->request('GET', $crawlerUrl);
-        $comments = $this->filterByKeys($crawler, [
-            '.comment_table > tr > th',
-            '.comment_table > tr > td',
-        ]);
+        $comments = $this->filterByKey($crawler, '.tbl_cyokuzen_comment > tbody > tr > td');
 
         foreach (range(1, 6) as $bracket) {
-            $pattern = '/(前日のコメント)(.+)(試運転コメント|１走目コメント|試運転記者の目|１走目記者の目)(.+)/u';
-            $subject = $comments['.comment_table > tr > td'][$bracket - 1] ?? '';
-            preg_match($pattern, $subject, $matches);
-
-            if (count($matches) === 0) {
-                $pattern = '/(前日のコメント)(.+)/u';
-                preg_match($pattern, $subject, $matches);
-            }
-
             $response['bracket' . $bracket . 'RacerName'] =
-                $this->removeSpace($comments['.comment_table > tr > th'][$bracket - 1] ?? '');
+                $this->removeNonJapanese($comments[$bracket * 5 - 5] ?? '');
             $response['bracket' . $bracket . 'RacerComment1Label'] = '前日コメント';
             $response['bracket' . $bracket . 'RacerComment1'] =
-                $this->formatComment($matches[2] ?? '');
-
-            if (count($matches) >= 5) {
-                $response['bracket' . $bracket . 'RacerComment2Label'] =
-                    $this->formatComment($matches[3] ?? '');
-                $response['bracket' . $bracket . 'RacerComment2'] =
-                    $this->formatComment($matches[4] ?? '');
-            }
+                $this->formatComment($comments[$bracket * 5 - 3] ?? '');
+            $response['bracket' . $bracket . 'RacerComment2Label'] =
+                $this->formatComment($comments[$bracket * 5 - 2] ?? '');
+            $response['bracket' . $bracket . 'RacerComment2'] =
+                $this->formatComment($comments[$bracket * 5 - 1] ?? '');
         }
 
         return $response;

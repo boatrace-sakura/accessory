@@ -701,6 +701,44 @@ class MainAccessoryTest extends PHPUnitTestCase
     /**
      * @return void
      */
+    public function testComments06(): void
+    {
+        $response = $this->accessory->comments(stadiumId: 6, raceNumber: 1, date: '2024-12-07');
+        $this->assertSame('倉田郁美', $response['bracket1RacerName']);
+        $this->assertSame('前日コメント', $response['bracket1RacerComment1Label']);
+        $this->assertSame('回り過ぎで軽い感じ。ターンが怖いし、滑る感じがした。', $response['bracket1RacerComment1']);
+        $this->assertSame('試運転記者の目', $response['bracket1RacerComment2Label']);
+        $this->assertSame('起こしてすぐの足が重い感じ。走り出せば悪くない。', $response['bracket1RacerComment2']);
+        $this->assertSame('中岡健人', $response['bracket2RacerName']);
+        $this->assertSame('前日コメント', $response['bracket2RacerComment1Label']);
+        $this->assertSame('ペラはたたいた。乗りやすくて悪くなかったし、微調整で。', $response['bracket2RacerComment1']);
+        $this->assertSame('試運転記者の目', $response['bracket2RacerComment2Label']);
+        $this->assertSame('スリット手前で伸びが止まる感じ。', $response['bracket2RacerComment2']);
+        $this->assertSame('渡辺史之', $response['bracket3RacerName']);
+        $this->assertSame('前日コメント', $response['bracket3RacerComment1Label']);
+        $this->assertSame('試運転を終えてペラを慌ててたたいたので、参考外。', $response['bracket3RacerComment1']);
+        $this->assertSame('試運転記者の目', $response['bracket3RacerComment2Label']);
+        $this->assertSame('スロー勢の中では行き足、伸びともまずまず。', $response['bracket3RacerComment2']);
+        $this->assertSame('秋末秦悟', $response['bracket4RacerName']);
+        $this->assertSame('前日コメント', $response['bracket4RacerComment1Label']);
+        $this->assertSame('すっと起きたし、行き足とか出足が良さそうだった。', $response['bracket4RacerComment1']);
+        $this->assertSame('試運転記者の目', $response['bracket4RacerComment2Label']);
+        $this->assertSame('特訓1本目は4カド、2本目はダッシュ6コース。行き足、伸びとも目立たず。', $response['bracket4RacerComment2']);
+        $this->assertSame('大崎翔', $response['bracket5RacerName']);
+        $this->assertSame('前日コメント', $response['bracket5RacerComment1Label']);
+        $this->assertSame('スリットくらいしか分からないけど、班の比較は普通。', $response['bracket5RacerComment1']);
+        $this->assertSame('試運転記者の目', $response['bracket5RacerComment2Label']);
+        $this->assertSame('スリット付近の伸びは微妙な感じ。', $response['bracket5RacerComment2']);
+        $this->assertSame('片岡大地', $response['bracket6RacerName']);
+        $this->assertSame('前日コメント', $response['bracket6RacerComment1Label']);
+        $this->assertSame('複勝率(26・0%)ほど気になる感じはなかった。', $response['bracket6RacerComment1']);
+        $this->assertSame('試運転記者の目', $response['bracket6RacerComment2Label']);
+        $this->assertSame('吉永泰弘にはターン後にじわりと出られた。', $response['bracket6RacerComment2']);
+    }
+
+    /**
+     * @return void
+     */
     public function testComments07(): void
     {
         $response = $this->accessory->comments(stadiumId: 7, raceNumber: 1, date: '2024-01-01');
