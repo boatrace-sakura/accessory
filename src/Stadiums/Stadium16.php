@@ -53,14 +53,17 @@ class Stadium16 extends BaseStadium implements StadiumInterface
         $crawlerFormat = '%s/hjpc/index/%s/%02d';
         $crawlerUrl = sprintf($crawlerFormat, $baseUrl, $date, $raceNumber);
         $crawler = $this->httpBrowser->request('GET', $crawlerUrl);
-        $comments = $this->filterByKeys($crawler, ['.ren-name', 'td.comment']);
+        $comments = $this->filterByKeys($crawler, [
+            'table.sensyu-comment > tbody > tr > td.profile-s > div.open-prof',
+            'table.sensyu-comment > tbody > tr > td.comment',
+        ]);
 
         foreach (range(1, 6) as $bracket) {
             $response['bracket' . $bracket . 'RacerName'] =
-                $this->removeSpace($comments['.ren-name'][$bracket - 1]);
+                $this->removeSpace($comments['table.sensyu-comment > tbody > tr > td.profile-s > div.open-prof'][$bracket - 1]);
             $response['bracket' . $bracket . 'RacerComment1Label'] = '前日コメント';
             $response['bracket' . $bracket . 'RacerComment1'] =
-                $this->formatComment($comments['td.comment'][$bracket - 1]);
+                $this->formatComment($comments['table.sensyu-comment > tbody > tr > td.comment'][$bracket - 1]);
         }
 
         return $response;
